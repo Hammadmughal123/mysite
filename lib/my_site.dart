@@ -15,12 +15,16 @@ class MySite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
+
       providers: [
         BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
         BlocProvider<ConnectedBloc>(create: (context) => ConnectedBloc()),
       ],
       child: MultiProvider(
         providers: [
+
+
+          
           ChangeNotifierProvider(create: (_) => DrawerProvider()),
           ChangeNotifierProvider(create: (_) => ScrollProvider()),
         ],

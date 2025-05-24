@@ -6,6 +6,9 @@ class ServicesUtils {
 
   ServicesUtils(
       {required this.name,
+
+
+
       required this.icon,
       required this.description,
       required this.tool});
@@ -21,6 +24,9 @@ List<ServicesUtils> servicesUtils = [
   ),
   ServicesUtils(
     name: 'iOS App Development',
+
+
+    
     icon: 'assets/icons/apple.svg',
     description:
         "Are you interested in the great Mobile app? Let's make it a reality.",
