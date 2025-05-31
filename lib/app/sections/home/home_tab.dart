@@ -94,12 +94,22 @@ class HomeTab extends StatelessWidget {
                   ),
                 ),
                 Space.y(2.w)!,
+                // ColorChageButton(
+                //   text: 'download cv',
+                //   onTap: () {
+                //     html.window.open(resume, "pdf");
+                //   },
+                // ),
                 ColorChageButton(
-                  text: 'download cv',
-                  onTap: () {
-                    html.window.open(resume, "pdf");
-                  },
-                ),
+                text: 'download cv',
+                onTap: () {
+                  final anchor = html.AnchorElement(href: 'assets/cv.pdf')
+                    ..setAttribute('download', 'resume.pdf')
+                    ..click();
+                },
+              ),
+
+
               ],
             ),
           ),

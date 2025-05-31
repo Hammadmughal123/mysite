@@ -65,10 +65,18 @@ class HomeMobile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // ColorChageButton(
+              //   text: 'download cv',
+              //   onTap: () {
+              //     html.window.open(resume, "pdf");
+              //   },
+              // ),
               ColorChageButton(
                 text: 'download cv',
                 onTap: () {
-                  html.window.open(resume, "pdf");
+                  final anchor = html.AnchorElement(href: 'assets/cv.pdf')
+                    ..setAttribute('download', 'resume.pdf')
+                    ..click();
                 },
               ),
               const EntranceFader(

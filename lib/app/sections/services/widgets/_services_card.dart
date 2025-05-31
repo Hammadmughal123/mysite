@@ -40,10 +40,20 @@ class _ServiceCardState extends State<_ServiceCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              widget.service.icon,
-              height: 60,
-            ),
+            // SvgPicture.asset(
+            //   widget.service.icon,
+            //   height: 60,
+            // ),
+
+            widget.service.icon.endsWith('.png')
+                ? Image.asset(
+                    widget.service.icon,
+                    height: 60,
+                  )
+                : SvgPicture.asset(
+                    widget.service.icon,
+                    height: 60,
+                  ),
             Space.y(3.w)!,
             Text(widget.service.name,
                 textAlign: TextAlign.center,

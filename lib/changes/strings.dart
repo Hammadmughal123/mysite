@@ -4,7 +4,7 @@ String yourname = "I'm Hammad Ramzan,";
 // String hometitle2 = "A Mobile Application\nDeveloper";
 
 String animationtxt1 = " Mobile Application Developer";
-String animationtxt2 = " UI/UX Designer";
+String animationtxt2 = " Backend Integration & Firebase";
 String animationtxt3 = " Web Developer";
 
 //

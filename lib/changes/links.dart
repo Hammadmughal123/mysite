@@ -3,16 +3,16 @@ const String resume =
     'https://drive.google.com/file/d/1bDNNrkQtNVJbXcdwMSx0crQQvAF_nMwV/view?usp=sharing';
 
 // Github Link
-const String gitHub = 'https://github.com/Hammadnb';
+const String gitHub = 'https://github.com/Hammadmughal123';
 // Github Link
-const String facebook = 'https://facebook.com/Hammadnb';
+const String facebook = 'https://www.facebook.com/profile.php?id=61551484292890';
 // Github Link
 const String twitter = 'https://twitter.com/Hammad78';
 // Github Link
 const String youtube =
     'https://www.youtube.com/channel/UCXooUY2oL_eqGhTaZn-ExSg';
 // Github Link
-const String linkedin = 'https://linkedin.com/in/Hammadnb';
+const String linkedin = 'https://www.linkedin.com/in/hammad-ramzan-8908aa27a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app';
 // Github Link
 const String buymeacoffee = 'https://www.buymeacoffee.com/Hammadnb';
 // Github Link
@@ -35,4 +35,4 @@ const String fiverr = 'https://www.fiverr.com/Hammadnb';
 // Github Link
 const String upwork = 'https://www.upwork.com/freelancers/~015c46144016569e31';
 // Github Link
-const String whatsapp = 'https://api.whatsapp.com/send?phone=94741325674';
+const String whatsapp = 'https://whatsapp.com/dl/code=mQu7JNnxV9';
