@@ -35,7 +35,7 @@ List<ServicesUtils> servicesUtils = [
     icon:
         'assets/imgs/cloud.png', // Make sure you have this icon or any cloud-related icon.
     description:
-        "Integrate robust backend solutions like Firebase and Supabase for authentication, real-time database, storage, and notifications",
+        "Integrate scalable backends using Firebase, Supabase, Node.js, or Laravel for APIs, auth, storage, and notifications",
     tool: ['Firebase', 'Supabase', 'REST API'],
   ),
   ServicesUtils(
