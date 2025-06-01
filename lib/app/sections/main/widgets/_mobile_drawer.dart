@@ -66,7 +66,8 @@ class _MobileDrawer extends StatelessWidget {
                   ColorChageButton(
                     text: 'RESUME',
                     onTap: () {
-                      openURL(resume);
+                      // openURL(resume);
+                      downloadCV();
                     },
                   ),
                 ],

@@ -12,6 +12,8 @@ import 'package:mysite/core/res/responsive_size.dart';
 import 'package:sizer/sizer.dart';
 import 'package:universal_html/html.dart' as html;
 
+import '../services/services.dart';
+
 class HomeTab extends StatelessWidget {
   const HomeTab({Key? key}) : super(key: key);
 
@@ -103,9 +105,7 @@ class HomeTab extends StatelessWidget {
                 ColorChageButton(
                 text: 'download cv',
                 onTap: () {
-                  final anchor = html.AnchorElement(href: 'assets/cv.pdf')
-                    ..setAttribute('download', 'resume.pdf')
-                    ..click();
+                    downloadCV();
                 },
               ),
 

@@ -1,3 +1,5 @@
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:mysite/app/sections/home/widgets/animation_text.dart';
 import 'package:mysite/core/animations/zoom_animation.dart';
 import 'package:mysite/core/res/responsive_size.dart';
@@ -11,6 +13,8 @@ import 'package:mysite/changes/links.dart';
 import 'package:mysite/changes/strings.dart';
 import 'package:mysite/core/animations/entrance_fader.dart';
 import 'package:mysite/core/configs/configs.dart';
+
+import '../services/services.dart';
 
 class HomeDesktop extends StatelessWidget {
   const HomeDesktop({Key? key}) : super(key: key);
@@ -91,10 +95,11 @@ class HomeDesktop extends StatelessWidget {
                   ColorChageButton(
                     text: 'Download CV',
                     onTap: () {
-                      final anchor =
-                          html.AnchorElement(href: 'assets/cv.pdf')
-                            ..setAttribute('download', 'resume.pdf')
-                            ..click();
+                      // final anchor =
+                      //     html.AnchorElement(href: 'assets/cv.pdf')
+                      //       ..setAttribute('download', 'resume.pdf')
+                      //       ..click();
+                      downloadCV();
                     },
                   )
                 ],

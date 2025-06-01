@@ -1,3 +1,5 @@
+
+
 part of '../services.dart';
 
 class _ServiceCard extends StatefulWidget {
@@ -109,5 +111,41 @@ class _ServiceCardState extends State<_ServiceCard> {
         ),
       ),
     );
+  }
+}
+
+
+void downloadCV() async {
+  if (kIsWeb) {
+    // Web download
+    final blob = html.Blob([
+      await html.HttpRequest.request('assets/cv.pdf', responseType: 'blob')
+    ]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final anchor = html.AnchorElement(href: url)
+      ..setAttribute("download", "resume.pdf")
+      ..click();
+    html.Url.revokeObjectUrl(url);
+  } else {
+    // Mobile
+    final status = await Permission.storage.request();
+    if (!status.isGranted) {
+      print('Permission denied');
+      return;
+    }
+
+    // Load from assets
+    final byteData = await rootBundle.load('assets/cv.pdf');
+
+    // Get path to save
+    final dir = await getExternalStorageDirectory();
+    final file = File('${dir!.path}/resume.pdf');
+
+    // Write to file
+    await file.writeAsBytes(byteData.buffer.asUint8List());
+
+    // Optional: Share or open
+    await Share.shareXFiles([XFile(file.path)], text: 'Download my resume');
+    print('PDF saved to ${file.path}');
   }
 }

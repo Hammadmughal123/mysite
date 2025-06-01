@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:mysite/app/sections/services/services.dart';
 import 'package:mysite/app/widgets/color_chage_btn.dart';
 import 'package:mysite/changes/img.dart';
 import 'package:mysite/changes/links.dart';
@@ -74,9 +75,7 @@ class HomeMobile extends StatelessWidget {
               ColorChageButton(
                 text: 'download cv',
                 onTap: () {
-                  final anchor = html.AnchorElement(href: 'assets/cv.pdf')
-                    ..setAttribute('download', 'resume.pdf')
-                    ..click();
+                downloadCV();
                 },
               ),
               const EntranceFader(
