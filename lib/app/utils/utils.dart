@@ -5,11 +5,15 @@ import 'package:mysite/app/sections/portfolio/portfolio.dart';
 import 'package:mysite/app/sections/services/services.dart';
 import 'package:mysite/app/widgets/footer.dart';
 
+import '../experience/experience.dart';
+
 class BodyUtils {
   static const List<Widget> views = [
     HomePage(),
+   // SkillsSection(),
     // About(),
     Services(),
+    SkillsSection(),
     Portfolio(),
     Contact(),
     Footer(),
