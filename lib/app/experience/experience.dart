@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mysite/core/configs/configs.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../core/color/colors.dart';
-import '../../core/res/responsive.dart';
+import '../../../../core/color/colors.dart';
+import '../../../../core/res/responsive.dart';
+
+// import '../../core/color/colors.dart';
+// import '../../core/res/responsive.dart';
 
 class SkillsSection extends StatefulWidget {
   const SkillsSection({Key? key}) : super(key: key);
@@ -297,7 +300,7 @@ class _SkillsSectionState extends State<SkillsSection>
               Space.y(3.w)!,
               _buildSkillDescription(skill, theme, index),
               Space.y(4.w)!,
-              _buildTechnologyTags(skill, theme),
+              _buildEnhancedTechnologyTags(skill, theme, isHovered),
             ],
           ),
         ),
@@ -380,49 +383,122 @@ class _SkillsSectionState extends State<SkillsSection>
     );
   }
 
-  Widget _buildTechnologyTags(Map<String, dynamic> skill, ThemeData theme) {
+  // Widget _buildTechnologyTags(Map<String, dynamic> skill, ThemeData theme) {
+  //   return Wrap(
+  //     alignment: WrapAlignment.center,
+  //     spacing: 8,
+  //     runSpacing: 8,
+  //     children: (skill['technologies'] as List<String>)
+  //         .map((tech) =>
+  //             _buildEnhancedTechChip(tech, theme, skill['color'] as Color))
+  //         .toList(),
+  //   );
+  // }
+
+  // Widget _buildEnhancedTechChip(
+  //     String tech, ThemeData theme, Color accentColor) {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(
+  //         colors: [
+  //           accentColor.withOpacity(0.15),
+  //           accentColor.withOpacity(0.08),
+  //         ],
+  //       ),
+  //       borderRadius: BorderRadius.circular(25),
+  //       border: Border.all(
+  //         color: accentColor.withOpacity(0.3),
+  //         width: 1.2,
+  //       ),
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: accentColor.withOpacity(0.1),
+  //           blurRadius: 8,
+  //           offset: const Offset(0, 2),
+  //         ),
+  //       ],
+  //     ),
+  //     child: Text(
+  //       tech,
+  //       style: TextStyle(
+  //         fontSize: 12,
+  //         color: theme.textColor.withOpacity(0.9),
+  //         fontWeight: FontWeight.w600,
+  //         letterSpacing: 0.2,
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Widget _buildEnhancedTechnologyTags(
+      Map<String, dynamic> skill, ThemeData theme, bool isHovered) {
     return Wrap(
       alignment: WrapAlignment.center,
-      spacing: 8,
-      runSpacing: 8,
+      spacing: 10,
+      runSpacing: 10,
       children: (skill['technologies'] as List<String>)
-          .map((tech) =>
-              _buildEnhancedTechChip(tech, theme, skill['color'] as Color))
+          .map((tech) => _buildGradientTechChip(
+              tech, theme, skill['color'] as Color, isHovered))
           .toList(),
     );
   }
 
-  Widget _buildEnhancedTechChip(
-      String tech, ThemeData theme, Color accentColor) {
+  Widget _buildGradientTechChip(
+      String tech, ThemeData theme, Color accentColor, bool cardHovered) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            accentColor.withOpacity(0.15),
-            accentColor.withOpacity(0.08),
-          ],
+          colors: cardHovered
+              ? [
+                  Colors.white.withOpacity(0.2),
+                  Colors.white.withOpacity(0.1),
+                ]
+              : [
+                  Colors.blue.shade400.withOpacity(0.2),
+                  Colors.purple.shade400.withOpacity(0.2),
+                  Colors.pink.shade400.withOpacity(0.2),
+                ],
         ),
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          color: accentColor.withOpacity(0.3),
-          width: 1.2,
+          color: cardHovered
+              ? Colors.white.withOpacity(0.3)
+              : accentColor.withOpacity(0.4),
+          width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: accentColor.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: cardHovered
+                ? Colors.white.withOpacity(0.2)
+                : Colors.blue.shade400.withOpacity(0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+          BoxShadow(
+            color: cardHovered
+                ? Colors.transparent
+                : Colors.purple.shade400.withOpacity(0.2),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+          BoxShadow(
+            color: cardHovered
+                ? Colors.transparent
+                : Colors.pink.shade400.withOpacity(0.2),
+            blurRadius: 25,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
       child: Text(
         tech,
         style: TextStyle(
-          fontSize: 12,
-          color: theme.textColor.withOpacity(0.9),
+          fontSize: 13,
+          color: cardHovered ? Colors.white : Colors.white.withOpacity(0.9),
           fontWeight: FontWeight.w600,
-          letterSpacing: 0.2,
+          letterSpacing: 0.3,
         ),
       ),
     );
