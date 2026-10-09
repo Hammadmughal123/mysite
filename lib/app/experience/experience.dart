@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:mysite/core/configs/configs.dart';
 import 'package:sizer/sizer.dart';
 
@@ -206,34 +207,31 @@ class _SkillsSectionState extends State<SkillsSection>
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: _getCrossAxisCount(),
-          crossAxisSpacing: Responsive.isMobile(context) ? 16 : 32,
-          mainAxisSpacing: Responsive.isMobile(context) ? 16 : 32,
+          crossAxisSpacing: Responsive.isMobile(context) ? 16 : 28,
+          mainAxisSpacing: Responsive.isMobile(context) ? 16 : 28,
           childAspectRatio: Responsive.isMobile(context)
-              ? 0.95
-              : (Responsive.isTablet(context) ? 0.88 : 0.9),
+              ? 0.96
+              : (Responsive.isTablet(context) ? 0.9 : 0.95),
         ),
         itemCount: skillsData.length,
         itemBuilder: (context, index) {
-          return AnimatedBuilder(
-            animation: _skillAnimations[index],
-            builder: (context, child) {
-              final animValue = _skillAnimations[index].value.clamp(0.0, 1.0);
-              return Transform.scale(
-                scale: 0.7 + (0.3 * animValue),
-                child: Transform.translate(
-                  offset: Offset(0, 60 * (1 - animValue)),
-                  child: Opacity(
-                    opacity: animValue,
-                    child: _buildEnhancedSkillCard(
-                      skillsData[index],
-                      theme,
-                      index,
-                    ),
-                  ),
-                ),
+          return _buildEnhancedSkillCard(
+            skillsData[index],
+            theme,
+            index,
+          )
+              .animate(delay: (index * 90).ms)
+              .fadeIn(duration: 500.ms, curve: Curves.easeOutCubic)
+              .slideY(
+                  begin: 0.18,
+                  end: 0,
+                  duration: 500.ms,
+                  curve: Curves.easeOutCubic)
+              .scale(
+                begin: const Offset(0.95, 0.95),
+                end: const Offset(1, 1),
+                curve: Curves.easeOutCubic,
               );
-            },
-          );
         },
       ),
     );
@@ -258,53 +256,64 @@ class _SkillsSectionState extends State<SkillsSection>
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutCubic,
-        transform: Matrix4.identity()
-          ..setEntry(3, 2, 0.001)
-          ..scale(isHovered ? 1.02 : 1.0),
-        child: Container(
-          width: Responsive.isTablet(context) ? 400 : 300,
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-          decoration: BoxDecoration(
-            gradient: isHovered ? pinkpurple : theme.serviceCard,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: isHovered
+        transform: Matrix4.identity()..translate(0.0, isHovered ? -8.0 : 0.0),
+        padding: const EdgeInsets.symmetric(vertical: 26.0, horizontal: 22.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isHovered
                 ? [
-                    BoxShadow(
-                      color: Colors.purple.withOpacity(0.3),
-                      blurRadius: 20,
-                      spreadRadius: 5,
-                      offset: const Offset(0, 10),
-                    ),
-                    BoxShadow(
-                      color: Colors.pink.withOpacity(0.2),
-                      blurRadius: 30,
-                      spreadRadius: 0,
-                      offset: const Offset(0, 15),
-                    ),
+                    const Color(0xFF242238),
+                    const Color(0xFF151425),
                   ]
                 : [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 10,
-                      spreadRadius: 0,
-                      offset: const Offset(0, 5),
-                    ),
+                    const Color(0xFF1C1A2A),
+                    const Color(0xFF11101C),
                   ],
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildAnimatedIcon(skill, isHovered),
-              const SizedBox(height: 14),
-              _buildSkillTitle(skill, theme, isHovered),
-              const SizedBox(height: 10),
-              _buildSkillDescription(skill, theme, index),
-              const SizedBox(height: 14),
-              _buildEnhancedTechnologyTags(skill, theme, isHovered),
-            ],
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(
+            color: isHovered
+                ? primaryColor.withOpacity(0.7)
+                : Colors.white.withOpacity(0.08),
+            width: 1.5,
           ),
+          boxShadow: isHovered
+              ? [
+                  BoxShadow(
+                    color: primaryColor.withOpacity(0.2),
+                    blurRadius: 24,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 8),
+                  ),
+                  BoxShadow(
+                    color: secondaryColor.withOpacity(0.12),
+                    blurRadius: 32,
+                    offset: const Offset(0, 12),
+                  ),
+                ]
+              : [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.35),
+                    blurRadius: 16,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildAnimatedIcon(skill, isHovered),
+            const SizedBox(height: 16),
+            _buildSkillTitle(skill, theme, isHovered),
+            const SizedBox(height: 12),
+            _buildSkillDescription(skill, theme, index),
+            const SizedBox(height: 16),
+            _buildEnhancedTechnologyTags(skill, theme, isHovered),
+          ],
         ),
       ),
     );
@@ -312,133 +321,89 @@ class _SkillsSectionState extends State<SkillsSection>
 
   Widget _buildAnimatedIcon(Map<String, dynamic> skill, bool isHovered) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 400),
-      width: 80,
-      height: 80,
+      duration: const Duration(milliseconds: 300),
+      width: 64,
+      height: 64,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: isHovered
               ? [
-                  (skill['color'] as Color).withOpacity(0.2),
-                  (skill['color'] as Color).withOpacity(0.1),
+                  primaryColor.withOpacity(0.25),
+                  secondaryColor.withOpacity(0.2),
                 ]
               : [
-                  (skill['color'] as Color).withOpacity(0.2),
-                  (skill['color'] as Color).withOpacity(0.1),
+                  primaryColor.withOpacity(0.12),
+                  secondaryColor.withOpacity(0.06),
                 ],
         ),
-        borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: isHovered
-              ? (skill['color'] as Color).withOpacity(0.3)
-              : (skill['color'] as Color).withOpacity(0.3),
-          width: 2,
+              ? primaryColor.withOpacity(0.85)
+              : primaryColor.withOpacity(0.25),
+          width: 1.5,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: (skill['color'] as Color).withOpacity(0.2),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
-          ),
-        ],
+        boxShadow: isHovered
+            ? [
+                BoxShadow(
+                  color: primaryColor.withOpacity(0.35),
+                  blurRadius: 18,
+                  offset: const Offset(0, 4),
+                ),
+              ]
+            : [],
       ),
-      child: Icon(
-        skill['icon'] as IconData,
-        size: 36,
-        color: isHovered ? Colors.white : (skill['color'] as Color),
+      child: Center(
+        child: Icon(
+          skill['icon'] as IconData,
+          size: 32,
+          color: isHovered ? primaryColor : Colors.white,
+        ),
       ),
     );
   }
 
   Widget _buildSkillTitle(
       Map<String, dynamic> skill, ThemeData theme, bool isHovered) {
-    return AnimatedDefaultTextStyle(
-      duration: const Duration(milliseconds: 300),
-      style: TextStyle(
-        fontSize: Responsive.isMobile(context) ? 20 : 22,
+    return Text(
+      skill['title'] as String,
+      textAlign: TextAlign.center,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: const TextStyle(
+        fontSize: 19,
         fontWeight: FontWeight.w700,
-        color: isHovered ? (skill['color'] as Color) : theme.textColor,
+        color: Colors.white,
         letterSpacing: -0.3,
-        height: 1.3,
-      ),
-      child: Text(
-        skill['title'] as String,
-        textAlign: TextAlign.center,
+        height: 1.25,
       ),
     );
   }
 
   Widget _buildSkillDescription(
       Map<String, dynamic> skill, ThemeData theme, int index) {
-    final isHovered = _hoverStates[index];
     return Text(
       skill['description'] as String,
       textAlign: TextAlign.center,
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontSize: 13,
-        color: isHovered ? Colors.white.withOpacity(0.8) : theme.textColor,
-        fontWeight: FontWeight.w200,
-        height: 1.5,
+        color: Colors.white.withOpacity(0.7),
+        fontWeight: FontWeight.w400,
+        height: 1.55,
       ),
     );
   }
-
-  // Widget _buildTechnologyTags(Map<String, dynamic> skill, ThemeData theme) {
-  //   return Wrap(
-  //     alignment: WrapAlignment.center,
-  //     spacing: 8,
-  //     runSpacing: 8,
-  //     children: (skill['technologies'] as List<String>)
-  //         .map((tech) =>
-  //             _buildEnhancedTechChip(tech, theme, skill['color'] as Color))
-  //         .toList(),
-  //   );
-  // }
-
-  // Widget _buildEnhancedTechChip(
-  //     String tech, ThemeData theme, Color accentColor) {
-  //   return Container(
-  //     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-  //     decoration: BoxDecoration(
-  //       gradient: LinearGradient(
-  //         colors: [
-  //           accentColor.withOpacity(0.15),
-  //           accentColor.withOpacity(0.08),
-  //         ],
-  //       ),
-  //       borderRadius: BorderRadius.circular(25),
-  //       border: Border.all(
-  //         color: accentColor.withOpacity(0.3),
-  //         width: 1.2,
-  //       ),
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: accentColor.withOpacity(0.1),
-  //           blurRadius: 8,
-  //           offset: const Offset(0, 2),
-  //         ),
-  //       ],
-  //     ),
-  //     child: Text(
-  //       tech,
-  //       style: TextStyle(
-  //         fontSize: 12,
-  //         color: theme.textColor.withOpacity(0.9),
-  //         fontWeight: FontWeight.w600,
-  //         letterSpacing: 0.2,
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget _buildEnhancedTechnologyTags(
       Map<String, dynamic> skill, ThemeData theme, bool isHovered) {
     return Wrap(
       alignment: WrapAlignment.center,
-      spacing: 10,
-      runSpacing: 10,
+      spacing: 8,
+      runSpacing: 8,
       children: (skill['technologies'] as List<String>)
           .map((tech) => _buildGradientTechChip(
               tech, theme, skill['color'] as Color, isHovered))
@@ -449,58 +414,26 @@ class _SkillsSectionState extends State<SkillsSection>
   Widget _buildGradientTechChip(
       String tech, ThemeData theme, Color accentColor, bool cardHovered) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: cardHovered
-              ? [
-                  Colors.white.withOpacity(0.2),
-                  Colors.white.withOpacity(0.1),
-                ]
-              : [
-                  Colors.blue.shade400.withOpacity(0.2),
-                  Colors.purple.shade400.withOpacity(0.2),
-                  Colors.pink.shade400.withOpacity(0.2),
-                ],
-        ),
-        borderRadius: BorderRadius.circular(30),
+        color: cardHovered
+            ? primaryColor.withOpacity(0.15)
+            : Colors.white.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: cardHovered
-              ? Colors.white.withOpacity(0.3)
-              : accentColor.withOpacity(0.4),
-          width: 1.5,
+              ? primaryColor.withOpacity(0.6)
+              : Colors.white.withOpacity(0.12),
+          width: 1,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: cardHovered
-                ? Colors.white.withOpacity(0.2)
-                : Colors.blue.shade400.withOpacity(0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-          BoxShadow(
-            color: cardHovered
-                ? Colors.transparent
-                : Colors.purple.shade400.withOpacity(0.2),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-          BoxShadow(
-            color: cardHovered
-                ? Colors.transparent
-                : Colors.pink.shade400.withOpacity(0.2),
-            blurRadius: 25,
-            offset: const Offset(0, 10),
-          ),
-        ],
       ),
       child: Text(
         tech,
         style: TextStyle(
-          fontSize: 13,
-          color: cardHovered ? Colors.white : Colors.white.withOpacity(0.9),
+          fontSize: 12,
+          color: cardHovered ? primaryColor : Colors.white.withOpacity(0.85),
           fontWeight: FontWeight.w600,
-          letterSpacing: 0.3,
+          letterSpacing: 0.2,
         ),
       ),
     );

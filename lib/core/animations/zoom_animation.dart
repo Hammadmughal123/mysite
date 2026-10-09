@@ -97,11 +97,11 @@ class _ZoomAnimationsState extends State<ZoomAnimations>
                   image: const DecorationImage(
                     fit: BoxFit.cover,
                     alignment: Alignment.center,
-                    image: AssetImage('assets/imgs/IMG_0107.jpeg'),
+                    image: AssetImage('assets/imgs/IMG0107.jpeg'),
                   ),
                 ),
               ),
-            );
+            );  
           },
         ),
       ),

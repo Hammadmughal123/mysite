@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mysite/app/utils/contact_utils.dart';
 import 'package:mysite/app/widgets/custom_text_heading.dart';
+import 'package:mysite/app/widgets/social_icon_button.dart';
 import 'package:mysite/changes/links.dart';
 import 'package:mysite/changes/strings.dart';
 import 'package:mysite/core/color/colors.dart';
@@ -13,7 +14,6 @@ class ContactMobileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     return Column(
       children: [
         Space.y(10.w)!,
@@ -27,41 +27,31 @@ class ContactMobileTab extends StatelessWidget {
         InkWell(
           onTap: () => openURL(whatsapp),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
             decoration: BoxDecoration(
                 gradient: buttonGradi, borderRadius: BorderRadius.circular(10)),
             child: const Text(
               'Get Started',
               style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: blackColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
               ),
             ),
           ),
         ),
-        Space.y(10.w)!,
+        Space.y(8.w)!,
         Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 12,
-            runSpacing: 12,
-            children: contactUtils
-                .map((e) => IconButton(
-                      icon: Image.network(
-                        e.icon,
-                        width: 22,
-                        height: 22,
-                        color: theme.textColor,
-                        errorBuilder: (ctx, err, stack) => Icon(
-                          Icons.open_in_new,
-                          size: 20,
-                          color: theme.textColor,
-                        ),
-                      ),
-                      onPressed: () => openURL(e.url),
-                      highlightColor: Colors.white24,
-                    ))
-                .toList()),
+          alignment: WrapAlignment.center,
+          spacing: 12,
+          runSpacing: 12,
+          children: contactUtils
+              .map((e) => SocialIconButton(
+                    item: e,
+                    size: 42,
+                  ))
+              .toList(),
+        ),
         Space.y(5.w)!,
         Container(color: Colors.white.withOpacity(0.2), height: 1),
       ],

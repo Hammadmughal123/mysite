@@ -23,12 +23,12 @@ class ServiceMobile extends StatelessWidget {
             child: _ServiceCard(
               service: servicesUtils[i],
               cardWidth: Responsive.isTablet(context) ? 350 : 290,
-              cardHeight: 380,
-            ),
+              cardHeight: 360,
+            ).animate().fadeIn(duration: 400.ms),
           ),
           options: CarouselOptions(
             viewportFraction: Responsive.isTablet(context) ? 0.5 : 0.82,
-            height: 410,
+            height: 390,
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 4),
             enlargeCenterPage: true,

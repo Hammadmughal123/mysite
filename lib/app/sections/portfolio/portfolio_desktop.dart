@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:mysite/app/utils/project_utils.dart';
 import 'package:mysite/app/widgets/custom_text_heading.dart';
 import 'package:mysite/changes/links.dart';
@@ -39,7 +40,19 @@ class _PortfolioDesktopState extends State<PortfolioDesktop> {
                 .asMap()
                 .entries
                 .map(
-                  (e) => ProjectCard(project: e.value),
+                  (e) => ProjectCard(project: e.value)
+                      .animate(delay: (e.key * 100).ms)
+                      .fadeIn(duration: 500.ms, curve: Curves.easeOutCubic)
+                      .slideY(
+                          begin: 0.18,
+                          end: 0,
+                          duration: 500.ms,
+                          curve: Curves.easeOutCubic)
+                      .scale(
+                        begin: const Offset(0.95, 0.95),
+                        end: const Offset(1, 1),
+                        curve: Curves.easeOutCubic,
+                      ),
                 )
                 .toList(),
           ),

@@ -15,8 +15,8 @@ class ScrollEntranceSection extends StatefulWidget {
     required this.child,
     required this.index,
     this.slideFromRight,
-    this.duration = const Duration(milliseconds: 700),
-    this.slideOffset = 70.0,
+    this.duration = const Duration(milliseconds: 650),
+    this.slideOffset = 35.0,
   }) : super(key: key);
 
   @override
@@ -44,12 +44,12 @@ class _ScrollEntranceSectionState extends State<ScrollEntranceSection>
       curve: Curves.easeOutCubic,
     );
 
-    // Alternate: odd index slides from right, even index slides from left (index 0 slides from top/fade)
+    // Alternate: odd index slides from right, even index slides from left
     final bool fromRight = widget.slideFromRight ?? (widget.index % 2 != 0);
     final double initialDx = widget.index == 0
         ? 0.0
         : (fromRight ? widget.slideOffset : -widget.slideOffset);
-    final double initialDy = widget.index == 0 ? 30.0 : 0.0;
+    final double initialDy = widget.index == 0 ? 25.0 : 20.0;
 
     _slideAnimation = Tween<Offset>(
       begin: Offset(initialDx, initialDy),
@@ -59,12 +59,17 @@ class _ScrollEntranceSectionState extends State<ScrollEntranceSection>
       curve: Curves.easeOutCubic,
     ));
 
-    // Fallback: If mounted, auto-trigger after 400ms to guarantee visibility
-    _fallbackTimer = Timer(const Duration(milliseconds: 400), () {
-      if (mounted && !_hasTriggered) {
-        _triggerAnimation();
-      }
-    });
+    // Home section (index 0) displays immediately
+    if (widget.index == 0) {
+      _triggerAnimation();
+    } else {
+      // Safety fallback: ensure section never stays invisible even if listener hiccups
+      _fallbackTimer = Timer(const Duration(milliseconds: 3500), () {
+        if (mounted && !_hasTriggered) {
+          _triggerAnimation();
+        }
+      });
+    }
   }
 
   void _triggerAnimation() {

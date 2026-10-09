@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysite/app/widgets/arrow_on_top.dart';
+import 'package:mysite/app/widgets/whatsapp_floating_button.dart';
 import 'package:mysite/app/widgets/color_chage_btn.dart';
 import 'package:mysite/changes/links.dart';
 import 'package:mysite/core/apis/links.dart';
@@ -109,7 +110,8 @@ class MainPage extends StatelessWidget {
                   ),
                 ),
               _Body(),
-              const ArrowOnTop()
+              const ArrowOnTop(),
+              const WhatsAppFloatingButton(),
             ],
           );
         },

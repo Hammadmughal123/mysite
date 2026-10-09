@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mysite/app/utils/contact_utils.dart';
 import 'package:mysite/app/widgets/custom_text_heading.dart';
+import 'package:mysite/app/widgets/social_icon_button.dart';
 import 'package:mysite/changes/links.dart';
 import 'package:mysite/changes/strings.dart';
 import 'package:mysite/core/color/colors.dart';
@@ -94,26 +95,16 @@ class ContactDesktop extends StatelessWidget {
                 Container(color: Colors.white.withOpacity(0.15), height: 1),
                 const SizedBox(height: 24),
                 Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: contactUtils
-                        .map((e) => IconButton(
-                              icon: Image.network(
-                                e.icon,
-                                width: 24,
-                                height: 24,
-                                color: theme.textColor,
-                                errorBuilder: (ctx, err, stack) => Icon(
-                                  Icons.open_in_new,
-                                  size: 22,
-                                  color: theme.textColor,
-                                ),
-                              ),
-                              onPressed: () => openURL(e.url),
-                              highlightColor: Colors.white24,
-                            ))
-                        .toList()),
+                  alignment: WrapAlignment.center,
+                  spacing: 16,
+                  runSpacing: 16,
+                  children: contactUtils
+                      .map((e) => SocialIconButton(
+                            item: e,
+                            size: 48,
+                          ))
+                      .toList(),
+                ),
               ],
             ),
           ),

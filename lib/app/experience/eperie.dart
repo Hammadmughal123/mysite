@@ -739,7 +739,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
       {
         'company': 'DigixValley Pvt Ltd',
         'position': 'Flutter Developer',
-        'duration': '1.5 Years',
+        'duration': 'April 2024 - Present',
         'type': 'Full-time',
         'description':
             'Developed and maintained multiple cross-platform mobile applications using Flutter framework. Collaborated with design and backend teams to deliver high-quality user experiences.',

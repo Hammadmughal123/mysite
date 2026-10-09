@@ -28,6 +28,7 @@ dependencies:
   carousel_slider: ^5.0.0
   animated_text_kit: ^4.2.2
   scrollable_positioned_list: ^0.3.8
+  flutter_animate: ^4.5.2
 
   # web related
   # flutter_html: any
@@ -50,6 +51,7 @@ flutter:
     - assets/imgs/
     - assets/icons/
     - assets/gif/
+    - assets/cv.pdf
 
   fonts:
     - family: Montserrat

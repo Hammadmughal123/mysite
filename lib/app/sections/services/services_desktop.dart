@@ -34,13 +34,25 @@ class ServiceDesktopState extends State<ServiceDesktop> {
                   spacing: 20,
                   runSpacing: 24,
                   alignment: WrapAlignment.center,
-                  children: servicesUtils
-                      .map((s) => _ServiceCard(
-                            service: s,
-                            cardWidth: cardWidth,
-                            cardHeight: 380,
-                          ))
-                      .toList(),
+                  children: servicesUtils.asMap().entries.map((e) {
+                    return _ServiceCard(
+                      service: e.value,
+                      cardWidth: cardWidth,
+                      cardHeight: 360,
+                    )
+                        .animate(delay: (e.key * 100).ms)
+                        .fadeIn(duration: 500.ms, curve: Curves.easeOutCubic)
+                        .slideY(
+                            begin: 0.18,
+                            end: 0,
+                            duration: 500.ms,
+                            curve: Curves.easeOutCubic)
+                        .scale(
+                          begin: const Offset(0.95, 0.95),
+                          end: const Offset(1, 1),
+                          curve: Curves.easeOutCubic,
+                        );
+                  }).toList(),
                 );
               } else {
                 // 2x2 symmetrical grid on medium desktop / laptop
@@ -50,13 +62,25 @@ class ServiceDesktopState extends State<ServiceDesktop> {
                   spacing: 24,
                   runSpacing: 24,
                   alignment: WrapAlignment.center,
-                  children: servicesUtils
-                      .map((s) => _ServiceCard(
-                            service: s,
-                            cardWidth: cardWidth,
-                            cardHeight: 380,
-                          ))
-                      .toList(),
+                  children: servicesUtils.asMap().entries.map((e) {
+                    return _ServiceCard(
+                      service: e.value,
+                      cardWidth: cardWidth,
+                      cardHeight: 360,
+                    )
+                        .animate(delay: (e.key * 100).ms)
+                        .fadeIn(duration: 500.ms, curve: Curves.easeOutCubic)
+                        .slideY(
+                            begin: 0.18,
+                            end: 0,
+                            duration: 500.ms,
+                            curve: Curves.easeOutCubic)
+                        .scale(
+                          begin: const Offset(0.95, 0.95),
+                          end: const Offset(1, 1),
+                          curve: Curves.easeOutCubic,
+                        );
+                  }).toList(),
                 );
               }
             },

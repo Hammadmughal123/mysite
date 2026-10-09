@@ -6,6 +6,7 @@ class _Body extends StatelessWidget {
     final scrollProvider = Provider.of<ScrollProvider>(context);
 
     return ScrollablePositionedList.builder(
+      physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.zero,
       itemCount: BodyUtils.views.length,
       itemBuilder: (context, index) => ScrollEntranceSection(

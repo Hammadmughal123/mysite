@@ -19,50 +19,43 @@ class ArrowOnTopState extends State<ArrowOnTop> {
     final scrollProvider = Provider.of<ScrollProvider>(context);
 
     return Positioned(
-      bottom: 100,
-      right: -7,
-      child: EntranceFader(
-        offset: const Offset(0, 20),
-        child: Padding(
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              InkWell(
-                borderRadius: BorderRadius.circular(8.0),
-                onTap: () => scrollProvider.jumpTo(0),
-                onHover: (isHovering) {
-                  if (isHovering) {
-                    setState(() => isHover = true);
-                  } else {
-                    setState(() => isHover = false);
-                  }
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: isHover ? buttonGradi : pinkpurple,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8.0),
-                      bottomLeft: Radius.circular(8.0),
-                    ),
-                    boxShadow: isHover
-                        ? [
-                            const BoxShadow(
-                              blurRadius: 12.0,
-                              offset: Offset(2.0, 3.0),
-                            )
-                          ]
-                        : null,
+      bottom: 92,
+      right: 28,
+      child: Tooltip(
+        message: 'Back to Top',
+        child: Material(
+          color: Colors.transparent,
+          shape: const CircleBorder(),
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: () => scrollProvider.jumpTo(0),
+            onHover: (isHovering) {
+              if (isHovering != isHover) {
+                setState(() => isHover = isHovering);
+              }
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: isHover ? buttonGradi : pinkpurple,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.purple.withOpacity(isHover ? 0.6 : 0.3),
+                    blurRadius: isHover ? 16 : 8,
+                    spreadRadius: isHover ? 2 : 0,
+                    offset: const Offset(0, 3),
                   ),
-                  child: Icon(
-                    Icons.arrow_drop_up_outlined,
-                    color: isHover ? blackColor : whiteColor,
-                    size: 5.h,
-                  ),
-                ),
+                ],
               ),
-            ],
+              child: const Icon(
+                Icons.keyboard_arrow_up_rounded,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
           ),
         ),
       ),
