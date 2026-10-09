@@ -22,91 +22,101 @@ class HomeDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    final double width = MediaQuery.of(context).size.width;
 
-    return SizedBox(
-      height: 80.h,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 10.h),
-              width: 55.w,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+    return Container(
+      constraints: const BoxConstraints(minHeight: 640),
+      padding: EdgeInsets.symmetric(
+        horizontal: (width * 0.06).clamp(32.0, 120.0),
+        vertical: 60,
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1300),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 40.0),
+                  child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(hellotag,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w100,
-                          )),
-                      EntranceFader(
-                        offset: const Offset(0, 0),
-                        delay: const Duration(seconds: 2),
-                        duration: const Duration(milliseconds: 800),
-                        child: Image.asset(StaticImage.hi, height: 40),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            hellotag,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          EntranceFader(
+                            offset: const Offset(0, 0),
+                            delay: const Duration(seconds: 1),
+                            duration: const Duration(milliseconds: 800),
+                            child: Image.asset(StaticImage.hi, height: 36),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Space.y(0.5.w)!,
-                  Text(yourname,
-                      style: const TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.w600,
-                      )),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const Text("A ",
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.w400,
-                          )),
-                      AnimatedTextKit(
-                        isRepeatingAnimation: true,
-                        repeatForever: true,
-                        animatedTexts: desktopList,
+                      const SizedBox(height: 12),
+                      Text(
+                        yourname,
+                        style: const TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -1,
+                        ),
                       ),
-                    ],
-                  ),
-                  Space.y(1.5.w)!,
-                  Padding(
-                    padding: EdgeInsets.only(right: 10.w),
-                    child: Text(miniDescription,
+                      const SizedBox(height: 8),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "A ",
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Flexible(
+                            child: AnimatedTextKit(
+                              isRepeatingAnimation: true,
+                              repeatForever: true,
+                              animatedTexts: desktopList,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        miniDescription,
                         style: TextStyle(
-                          fontSize: isFontSize(context, 20),
+                          fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: theme.textColor.withOpacity(0.6),
-                        )),
+                          color: theme.textColor.withOpacity(0.7),
+                          height: 1.6,
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                      ColorChageButton(
+                        text: 'Download CV',
+                        onTap: () {
+                          downloadCV();
+                        },
+                      ),
+                    ],
                   ),
-                  Space.y(3.w)!,
-                  // ColorChageButton(
-                  //   text: 'download cv',
-                  //   onTap: () {
-                  //     html.window.open(resume, "pdf");
-                  //   },
-                  // ),
-                  ColorChageButton(
-                    text: 'Download CV',
-                    onTap: () {
-                      // final anchor =
-                      //     html.AnchorElement(href: 'assets/cv.pdf')
-                      //       ..setAttribute('download', 'resume.pdf')
-                      //       ..click();
-                      downloadCV();
-                    },
-                  )
-                ],
+                ),
               ),
-            ),
-            const ZoomAnimations(),
-          ],
+              const ZoomAnimations(),
+            ],
+          ),
         ),
       ),
     );

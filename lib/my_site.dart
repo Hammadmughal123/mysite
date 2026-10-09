@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mysite/app/sections/main/main_section.dart';
 import 'package:mysite/core/configs/configs.dart';
 import 'package:mysite/core/configs/connection/bloc/connected_bloc.dart';
 import 'package:mysite/core/configs/connection/network_check.dart';
@@ -32,10 +33,10 @@ class MySite extends StatelessWidget {
           return Sizer(builder: (context, orientation, deviceType) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Hammad',
+              title: 'Hammad Ramzan | Portfolio',
               theme: AppTheme.themeData(state.isDarkThemeOn, context),
               initialRoute: "/",
-              routes: {"/": (context) => const NChecking()},
+              routes: {"/": (context) => const MainPage()},
             );
           });
         }),

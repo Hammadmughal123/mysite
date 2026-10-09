@@ -208,7 +208,9 @@ class _SkillsSectionState extends State<SkillsSection>
           crossAxisCount: _getCrossAxisCount(),
           crossAxisSpacing: Responsive.isMobile(context) ? 16 : 32,
           mainAxisSpacing: Responsive.isMobile(context) ? 16 : 32,
-          childAspectRatio: Responsive.isMobile(context) ? 0.9 : 0.95,
+          childAspectRatio: Responsive.isMobile(context)
+              ? 0.95
+              : (Responsive.isTablet(context) ? 0.88 : 0.9),
         ),
         itemCount: skillsData.length,
         itemBuilder: (context, index) {
@@ -295,11 +297,11 @@ class _SkillsSectionState extends State<SkillsSection>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _buildAnimatedIcon(skill, isHovered),
-              Space.y(4.w)!,
+              const SizedBox(height: 14),
               _buildSkillTitle(skill, theme, isHovered),
-              Space.y(3.w)!,
+              const SizedBox(height: 10),
               _buildSkillDescription(skill, theme, index),
-              Space.y(4.w)!,
+              const SizedBox(height: 14),
               _buildEnhancedTechnologyTags(skill, theme, isHovered),
             ],
           ),

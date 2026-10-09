@@ -39,71 +39,79 @@ class ContactDesktop extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          contactHeadding,
-                          style: TextStyle(
-                            height: 1.2,
-                            fontSize: 8.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 24.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              contactHeadding,
+                              style: const TextStyle(
+                                height: 1.2,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              contactSubHeadding,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                color: theme.textColor.withOpacity(0.8),
+                              ),
+                            ),
+                          ],
                         ),
-
-                        Space.y(1.w)!,
-                        Text(
-                          contactSubHeadding,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w100,
-                          ),
-                        ),
-                        Space.y(2.w)!,
-                        // SizedBox(height: AppDimensions.space(3)),
-                      ],
+                      ),
                     ),
                     InkWell(
+                      borderRadius: BorderRadius.circular(10),
                       onTap: () => openURL(whatsapp),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 20),
+                            vertical: 12, horizontal: 28),
                         decoration: BoxDecoration(
                             gradient: buttonGradi,
-                            // border: Border.all(
-                            //     width: 2.0, color: theme.primaryColor),
                             borderRadius: BorderRadius.circular(10)),
                         child: const Text(
                           'Get Started',
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: textColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
-                Container(color: Colors.white.withOpacity(0.2), height: 1),
-                Space.y(2.w)!,
+                const SizedBox(height: 24),
+                Container(color: Colors.white.withOpacity(0.15), height: 1),
+                const SizedBox(height: 24),
                 Wrap(
                     alignment: WrapAlignment.center,
-                    runSpacing: 50,
+                    spacing: 16,
+                    runSpacing: 16,
                     children: contactUtils
-                        .asMap()
-                        .entries
                         .map((e) => IconButton(
                               icon: Image.network(
-                                e.value.icon,
+                                e.icon,
+                                width: 24,
+                                height: 24,
                                 color: theme.textColor,
+                                errorBuilder: (ctx, err, stack) => Icon(
+                                  Icons.open_in_new,
+                                  size: 22,
+                                  color: theme.textColor,
+                                ),
                               ),
-                              onPressed: () => openURL(e.value.url),
-                              highlightColor: Colors.white54,
-                              iconSize: 21,
+                              onPressed: () => openURL(e.url),
+                              highlightColor: Colors.white24,
                             ))
                         .toList()),
               ],

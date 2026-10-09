@@ -19,17 +19,21 @@ class ServiceMobile extends StatelessWidget {
         CarouselSlider.builder(
           itemCount: servicesUtils.length,
           itemBuilder: (BuildContext context, int itemIndex, int i) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 0.5.w),
-            child: _ServiceCard(service: servicesUtils[i]),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+            child: _ServiceCard(
+              service: servicesUtils[i],
+              cardWidth: Responsive.isTablet(context) ? 350 : 290,
+              cardHeight: 380,
+            ),
           ),
           options: CarouselOptions(
-            viewportFraction: 0.6,
-            height: 300,
+            viewportFraction: Responsive.isTablet(context) ? 0.5 : 0.82,
+            height: 410,
             autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 5),
+            autoPlayInterval: const Duration(seconds: 4),
             enlargeCenterPage: true,
             autoPlayCurve: Curves.fastOutSlowIn,
-            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+            autoPlayAnimationDuration: const Duration(milliseconds: 600),
             enableInfiniteScroll: false,
           ),
         )

@@ -11,34 +11,43 @@ class _NavbarDesktopState extends State<_NavbarDesktop> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // theme
     var theme = Theme.of(context);
+    final double horizontalPadding =
+        (size.width * 0.05).clamp(24.0, 80.0);
+
     return BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: size.width / 8, vertical: 10),
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: 12,
+        ),
         color: theme.navBarColor,
         child: Row(
           children: [
             const NavBarLogo(),
-            Space.xm!,
+            const Spacer(),
             ...NavBarUtils.names.asMap().entries.map(
                   (e) => NavBarActionButton(
                     label: e.value,
                     index: e.key,
                   ),
                 ),
-            // Space.x!,
-            InkWell(
-                onTap: () {
-                  context.read<ThemeCubit>().updateTheme(!state.isDarkThemeOn);
-                },
-                child: Image.network(
-                  state.isDarkThemeOn ? IconUrls.darkIcon : IconUrls.lightIcon,
-                  height: 30,
-                  width: 30,
-                  color: state.isDarkThemeOn ? Colors.black : Colors.white,
-                )),
-            // Space.x!,
+            const SizedBox(width: 8),
+            IconButton(
+              tooltip: state.isDarkThemeOn ? 'Light Mode' : 'Dark Mode',
+              onPressed: () {
+                context.read<ThemeCubit>().updateTheme(!state.isDarkThemeOn);
+              },
+              icon: Icon(
+                state.isDarkThemeOn
+                    ? Icons.light_mode_rounded
+                    : Icons.dark_mode_rounded,
+                color: state.isDarkThemeOn
+                    ? Colors.amber.shade400
+                    : Colors.indigo.shade300,
+                size: 22,
+              ),
+            ),
           ],
         ),
       );

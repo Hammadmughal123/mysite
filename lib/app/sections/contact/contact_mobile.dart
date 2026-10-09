@@ -43,18 +43,23 @@ class ContactMobileTab extends StatelessWidget {
         Space.y(10.w)!,
         Wrap(
             alignment: WrapAlignment.center,
-            runSpacing: 50,
+            spacing: 12,
+            runSpacing: 12,
             children: contactUtils
-                .asMap()
-                .entries
                 .map((e) => IconButton(
                       icon: Image.network(
-                        e.value.icon,
+                        e.icon,
+                        width: 22,
+                        height: 22,
                         color: theme.textColor,
+                        errorBuilder: (ctx, err, stack) => Icon(
+                          Icons.open_in_new,
+                          size: 20,
+                          color: theme.textColor,
+                        ),
                       ),
-                      onPressed: () => openURL(e.value.url),
-                      highlightColor: Colors.white54,
-                      iconSize: 21,
+                      onPressed: () => openURL(e.url),
+                      highlightColor: Colors.white24,
                     ))
                 .toList()),
         Space.y(5.w)!,

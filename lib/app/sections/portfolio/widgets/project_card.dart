@@ -22,9 +22,13 @@ class ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     var theme = Theme.of(context);
+    final double cardWidth = Responsive.isDesktop(context)
+        ? (width * 0.26).clamp(320.0, 420.0)
+        : (width * 0.82).clamp(280.0, 380.0);
+    const double cardHeight = 280.0;
+
     return InkWell(
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
@@ -38,12 +42,12 @@ class ProjectCardState extends State<ProjectCard> {
         }
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 1.w),
-        width: Responsive.isDesktop(context) ? 30.w : 70.w,
-        height: 36.h,
+        margin: const EdgeInsets.all(10),
+        width: cardWidth,
+        height: cardHeight,
         decoration: BoxDecoration(
           gradient: isHover ? pinkpurple : grayBack,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: isHover ? [primaryColorShadow] : [blackColorShadow],
         ),
         child: Stack(
@@ -56,9 +60,9 @@ class ProjectCardState extends State<ProjectCard> {
                 children: [
                   Image.asset(
                     widget.project.icons,
-                    height: height * 0.05,
+                    height: cardHeight * 0.05,
                   ),
-                  SizedBox(height: height * 0.02),
+                  SizedBox(height: cardHeight * 0.02),
                   Text(
                     widget.project.titles,
                     style: TextStyle(
@@ -67,7 +71,7 @@ class ProjectCardState extends State<ProjectCard> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: height * 0.01),
+                  SizedBox(height: cardHeight * 0.01),
                   Text(
                     widget.project.description,
                     textAlign: TextAlign.center,
@@ -75,7 +79,7 @@ class ProjectCardState extends State<ProjectCard> {
                       color: isHover ? whiteColor : theme.textColor,
                     ),
                   ),
-                  SizedBox(height: height * 0.01),
+                  SizedBox(height: cardHeight * 0.01),
                 ],
               ),
             ),

@@ -20,8 +20,10 @@ class _PortfolioDesktopState extends State<PortfolioDesktop> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final double horizontalPadding =
+        (size.width * 0.06).clamp(24.0, 100.0);
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: size.width / 8),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 30),
       child: Column(
         children: [
           const CustomSectionHeading(text: "\nProjects"),
@@ -29,9 +31,10 @@ class _PortfolioDesktopState extends State<PortfolioDesktop> {
           CustomSectionSubHeading(text: protfolioSubHeading),
           Space.y(2.w)!,
           Wrap(
-            alignment: WrapAlignment.start,
-            crossAxisAlignment: WrapCrossAlignment.start,
-            runSpacing: 3.w,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 16,
+            runSpacing: 20,
             children: projectUtils
                 .asMap()
                 .entries

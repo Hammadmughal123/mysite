@@ -8,8 +8,13 @@ class _Body extends StatelessWidget {
     return ScrollablePositionedList.builder(
       padding: EdgeInsets.zero,
       itemCount: BodyUtils.views.length,
-      itemBuilder: (context, index) => BodyUtils.views[index],
+      itemBuilder: (context, index) => ScrollEntranceSection(
+        index: index,
+        child: BodyUtils.views[index],
+      ),
       itemScrollController: scrollProvider.itemScrollController,
+      itemPositionsListener: scrollProvider.itemPositionsListener,
     );
   }
 }
+

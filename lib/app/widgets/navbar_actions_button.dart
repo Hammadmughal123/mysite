@@ -30,12 +30,13 @@ class _NavBarActionButtonState extends State<NavBarActionButton> {
       delay: const Duration(milliseconds: 1000),
       duration: const Duration(milliseconds: 250),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
+        margin: const EdgeInsets.symmetric(horizontal: 3),
         decoration: BoxDecoration(
           gradient: isHover ? pinkpurple : null,
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: InkWell(
+          borderRadius: BorderRadius.circular(8.0),
           onHover: (value) {
             setState(() => isHover = value);
           },
@@ -43,10 +44,15 @@ class _NavBarActionButtonState extends State<NavBarActionButton> {
             scrollProvider.jumpTo(widget.index);
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             child: Text(
               widget.label,
-              style: TextStyle(color: theme.textColor),
+              style: TextStyle(
+                color: isHover ? Colors.white : theme.textColor,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.8,
+              ),
             ),
           ),
         ),

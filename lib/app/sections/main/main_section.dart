@@ -21,7 +21,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 import 'package:mysite/core/util/constants.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:mysite/core/animations/scroll_entrance_section.dart';
 import '../services/services.dart';
 part 'widgets/_navbar_desktop.dart';
 part 'widgets/_mobile_drawer.dart';
@@ -40,7 +40,7 @@ class MainPage extends StatelessWidget {
       key: drawerProvider.key,
       extendBodyBehindAppBar: true,
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(120),
+        preferredSize: Size.fromHeight(80),
         child: Responsive(
           desktop: _NavbarDesktop(),
           mobile: _NavBarTablet(),
@@ -52,45 +52,46 @@ class MainPage extends StatelessWidget {
         builder: (context, state) {
           return Stack(
             children: [
+              // GPU-optimized glowing gradient orb (top-left)
               Positioned(
-                top: height * 0.2,
-                left: -88,
-                child: Container(
-                  height: height / 3,
-                  width: 166,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: secondaryColor,
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                    child: Container(
-                      height: 166,
-                      width: 166,
-                      color: Colors.transparent,
+                top: height * 0.15,
+                left: -100,
+                child: IgnorePointer(
+                  child: Container(
+                    height: 380,
+                    width: 380,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: [
+                          secondaryColor.withOpacity(0.35),
+                          secondaryColor.withOpacity(0.12),
+                          Colors.transparent,
+                        ],
+                        stops: const [0.0, 0.45, 1.0],
+                      ),
                     ),
                   ),
                 ),
               ),
+              // GPU-optimized glowing gradient orb (bottom-right)
               Positioned(
-                bottom: 0,
+                bottom: -50,
                 right: -100,
-                child: Container(
-                  height: 100,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: primaryColor.withOpacity(0.5),
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: 500,
-                      sigmaY: 500,
-                    ),
-                    child: Container(
-                      height: 200,
-                      width: 200,
-                      color: Colors.transparent,
+                child: IgnorePointer(
+                  child: Container(
+                    height: 420,
+                    width: 420,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: [
+                          primaryColor.withOpacity(0.35),
+                          primaryColor.withOpacity(0.12),
+                          Colors.transparent,
+                        ],
+                        stops: const [0.0, 0.45, 1.0],
+                      ),
                     ),
                   ),
                 ),
@@ -98,9 +99,8 @@ class MainPage extends StatelessWidget {
               if (!state.isDarkThemeOn)
                 Align(
                   alignment: Alignment.center,
-                  // BG01.png
                   child: Image.asset(
-                    'assets/imgs/5424482.JPG',
+                    'assets/imgs/5424482.jpg',
                     opacity: const AlwaysStoppedAnimation<double>(0.2),
                     width: width,
                     height: height,

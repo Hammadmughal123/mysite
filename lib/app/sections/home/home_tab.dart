@@ -20,100 +20,98 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return SizedBox(
-      height: 60.h,
-      child: Stack(
-        children: [
-          Positioned(
-            right: 10.w,
-            bottom: 20.w,
-            child: const EntranceFader(
-              offset: Offset(0, 0),
-              delay: Duration(seconds: 1),
-              duration: Duration(milliseconds: 800),
-              child: ZoomAnimations(),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10.w, top: 10.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+    final double width = MediaQuery.of(context).size.width;
+
+    return Container(
+      constraints: const BoxConstraints(minHeight: 520),
+      padding: EdgeInsets.symmetric(
+        horizontal: (width * 0.06).clamp(24.0, 60.0),
+        vertical: 40,
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 24.0),
+                child: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      hellotag,
-                      style: AppText.h3!
-                          .copyWith(fontSize: isFontSize(context, 18)),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          hellotag,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        EntranceFader(
+                          offset: const Offset(0, 0),
+                          delay: const Duration(seconds: 1),
+                          duration: const Duration(milliseconds: 800),
+                          child: Image.asset(StaticImage.hi, height: 28),
+                        ),
+                      ],
                     ),
-                    EntranceFader(
-                      offset: const Offset(0, 0),
-                      delay: const Duration(seconds: 2),
-                      duration: const Duration(milliseconds: 800),
-                      child: Image.asset(StaticImage.hi, height: 10.sp),
+                    const SizedBox(height: 10),
+                    Text(
+                      yourname,
+                      style: const TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "A ",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Flexible(
+                          child: AnimatedTextKit(
+                            animatedTexts: tabList,
+                            isRepeatingAnimation: true,
+                            repeatForever: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      miniDescription,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: theme.textColor.withOpacity(0.7),
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    ColorChageButton(
+                      text: 'Download CV',
+                      onTap: () {
+                        downloadCV();
+                      },
                     ),
                   ],
                 ),
-                Space.y(1.w)!,
-                Text(
-                  yourname,
-                  style: TextStyle(
-                    fontSize: isFontSize(context, 38),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                EntranceFader(
-                  offset: const Offset(-10, 0),
-                  delay: const Duration(seconds: 1),
-                  duration: const Duration(milliseconds: 800),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "A ",
-                        style: TextStyle(
-                          fontSize: isFontSize(context, 24),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      AnimatedTextKit(
-                        animatedTexts: tabList,
-                        isRepeatingAnimation: true,
-                      ),
-                    ],
-                  ),
-                ),
-                Space.y(1.5.w)!,
-                Padding(
-                  padding: EdgeInsets.only(right: 50.w),
-                  child: Text(
-                    miniDescription,
-                    style: TextStyle(
-                        fontSize: isFontSize(context, 16),
-                        fontWeight: FontWeight.w100,
-                        color: theme.textColor.withOpacity(0.6)),
-                  ),
-                ),
-                Space.y(2.w)!,
-                // ColorChageButton(
-                //   text: 'download cv',
-                //   onTap: () {
-                //     html.window.open(resume, "pdf");
-                //   },
-                // ),
-                ColorChageButton(
-                text: 'download cv',
-                onTap: () {
-                    downloadCV();
-                },
               ),
-
-
-              ],
             ),
-          ),
-        ],
+            const ZoomAnimations(size: 210),
+          ],
+        ),
       ),
     );
   }

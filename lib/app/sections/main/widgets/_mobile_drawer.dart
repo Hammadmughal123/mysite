@@ -13,64 +13,65 @@ class _MobileDrawer extends StatelessWidget {
         builder: (context, state) {
           return Material(
             color: theme.scaffoldBackgroundColor,
-            child: Padding(
-              padding: EdgeInsets.only(top: 2.h),
-              child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Center(child: NavBarLogo()),
-                  const Divider(),
-                  ListTile(
-                    leading: Icon(
-                      state.isDarkThemeOn
-                          ? Icons.dark_mode_outlined
-                          : Icons.light_mode,
-                      // color: theme.textColor,
+            child: SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                child: Column(
+                  children: [
+                    const Center(child: NavBarLogo()),
+                    const SizedBox(height: 12),
+                    const Divider(),
+                    ListTile(
+                      leading: Icon(
+                        state.isDarkThemeOn
+                            ? Icons.dark_mode_outlined
+                            : Icons.light_mode,
+                      ),
+                      title:
+                          Text(state.isDarkThemeOn ? "Dark Mode" : "Light Mode"),
+                      trailing: Switch(
+                        value: state.isDarkThemeOn,
+                        activeColor: theme.primaryColor,
+                        inactiveTrackColor: Colors.grey,
+                        onChanged: (newValue) {
+                          context.read<ThemeCubit>().updateTheme(newValue);
+                        },
+                      ),
                     ),
-                    title:
-                        Text(state.isDarkThemeOn ? "Light Mode" : "Dark Mode"),
-                    trailing: Switch(
-                      value: state.isDarkThemeOn,
-                      activeColor: theme.primaryColor,
-                      inactiveTrackColor: Colors.grey,
-                      onChanged: (newValue) {
-                        context.read<ThemeCubit>().updateTheme(newValue);
-                      },
-                    ),
-                  ),
-                  const Divider(),
-                  ...NavBarUtils.names.asMap().entries.map(
-                        (e) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: MaterialButton(
-                            hoverColor: theme.primaryColor.withAlpha(70),
-                            onPressed: () {
-                              // scrollProvider.scrollMobile(e.key);
-                              scrollProvider.jumpTo(e.key);
-                              Navigator.pop(context);
-                            },
+                    const Divider(),
+                    ...NavBarUtils.names.asMap().entries.map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: ListTile(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              hoverColor: theme.primaryColor.withAlpha(70),
+                              onTap: () {
+                                scrollProvider.jumpTo(e.key);
+                                Navigator.pop(context);
+                              },
                               leading: Icon(
                                 NavBarUtils.icons[e.key],
-                                // color: theme.primaryColor,
+                                color: theme.primaryColor,
                               ),
                               title: Text(
                                 e.value,
-                                // style: AppText.l1,
+                                style: const TextStyle(fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                  Space.y(5.w)!,
-                  ColorChageButton(
-                    text: 'RESUME',
-                    onTap: () {
-                      // openURL(resume);
-                      downloadCV();
-                    },
-                  ),
-                ],
+                    const SizedBox(height: 20),
+                    ColorChageButton(
+                      text: 'RESUME',
+                      onTap: () {
+                        downloadCV();
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
           );

@@ -19,72 +19,81 @@ class HomeMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Padding(
-      padding: EdgeInsets.only(left: 10.w, top: 10.h, right: 10.w),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const EntranceFader(
+            offset: Offset(0, -20),
+            delay: Duration(milliseconds: 400),
+            duration: Duration(milliseconds: 800),
+            child: ZoomAnimations(size: 180),
+          ),
+          const SizedBox(height: 28),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 hellotag,
-                style: AppText.h3!.copyWith(fontSize: isFontSize(context, 16)),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
-              // Space.x!,
-              Image.asset(StaticImage.hi, height: 10.sp),
+              const SizedBox(width: 6),
+              Image.asset(StaticImage.hi, height: 26),
             ],
           ),
-          // Space.y(1.w)!,
+          const SizedBox(height: 8),
           Text(
             yourname,
-            style: TextStyle(
-              fontSize: isFontSize(context, 28),
-              fontWeight: FontWeight.w600,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.5,
             ),
           ),
-          Space.y(1.w)!,
+          const SizedBox(height: 6),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "A ",
                 style: TextStyle(
-                  fontSize: isFontSize(context, 18),
+                  fontSize: 20,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              AnimatedTextKit(
-                animatedTexts: mobileList,
-                repeatForever: true,
-                isRepeatingAnimation: true,
+              Flexible(
+                child: AnimatedTextKit(
+                  animatedTexts: mobileList,
+                  repeatForever: true,
+                  isRepeatingAnimation: true,
+                ),
               ),
             ],
           ),
-
-          Space.y(2.w)!,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // ColorChageButton(
-              //   text: 'download cv',
-              //   onTap: () {
-              //     html.window.open(resume, "pdf");
-              //   },
-              // ),
-              ColorChageButton(
-                text: 'download cv',
-                onTap: () {
-                downloadCV();
-                },
-              ),
-              const EntranceFader(
-                offset: Offset(0, 0),
-                delay: Duration(seconds: 1),
-                duration: Duration(milliseconds: 800),
-                child: ZoomAnimations(),
-              )
-            ],
+          const SizedBox(height: 14),
+          Text(
+            miniDescription,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: theme.textColor.withOpacity(0.7),
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 24),
+          ColorChageButton(
+            text: 'Download CV',
+            onTap: () {
+              downloadCV();
+            },
           ),
         ],
       ),
