@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysite/changes/links.dart';
+import 'package:mysite/core/animations/scroll_reveal.dart';
 import 'package:mysite/core/util/constants.dart';
 
 class Footer extends StatelessWidget {
@@ -9,7 +10,9 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return Container(
+    return ScrollReveal(
+      detectorKey: 'footer',
+      child: Container(
       margin: EdgeInsets.fromLTRB(0, height * 0.05, 0, 0),
       height: height * 0.07,
       width: width,
@@ -28,6 +31,7 @@ class Footer extends StatelessWidget {
             const Text(" © 2025"),
           ],
         ),
+      ),
       ),
     );
   }

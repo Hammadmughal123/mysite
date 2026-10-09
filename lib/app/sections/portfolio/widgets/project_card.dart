@@ -14,8 +14,7 @@ class ProjectCard extends StatefulWidget {
   ProjectCardState createState() => ProjectCardState();
 }
 
-
-
+         
 
 class ProjectCardState extends State<ProjectCard> {
   bool isHover = false;
@@ -41,10 +40,13 @@ class ProjectCardState extends State<ProjectCard> {
           setState(() => isHover = false);
         }
       },
-      child: Container(
+          child: AnimatedContainer(
+        duration: const Duration(milliseconds: 280),
+        curve: Curves.easeOutCubic,
         margin: const EdgeInsets.all(10),
         width: cardWidth,
         height: cardHeight,
+        transform: Matrix4.identity()..translate(0.0, isHover ? -8.0 : 0.0),
         decoration: BoxDecoration(
           gradient: isHover ? pinkpurple : grayBack,
           borderRadius: BorderRadius.circular(16),
@@ -92,8 +94,12 @@ class ProjectCardState extends State<ProjectCard> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                      image: AssetImage(widget.project.banners),
-                      fit: BoxFit.cover),
+                    image: ResizeImage(
+                      AssetImage(widget.project.banners),
+                      width: 650,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 // child: Image.asset(
                 //   widget.project.banners,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import '../../core/animations/scroll_entrance_section.dart';
 
 import '../../core/res/responsive.dart';
 
@@ -17,12 +18,26 @@ class _ExperienceSectionState extends State<ExperienceSection>
   late List<Animation<double>> _cardAnimations;
   late Animation<double> _titleAnimation;
   late Animation<double> _timelineAnimation;
+  bool _wasVisible = false;
 
   @override
   void initState() {
     super.initState();
     _initializeAnimations();
-    _startAnimations();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final bool isVisible = SectionVisibilityScope.of(context);
+    if (isVisible != _wasVisible) {
+      _wasVisible = isVisible;
+      if (isVisible) {
+        _startAnimations();
+      } else {
+        _resetAnimations();
+      }
+    }
   }
 
   void _initializeAnimations() {
@@ -71,16 +86,23 @@ class _ExperienceSectionState extends State<ExperienceSection>
   }
 
   void _startAnimations() async {
-    _mainAnimationController.forward();
+    _mainAnimationController.forward(from: 0.0);
 
-    await Future.delayed(const Duration(milliseconds: 600));
+    await Future.delayed(const Duration(milliseconds: 350));
 
     for (int i = 0; i < _cardControllers.length; i++) {
-      Future.delayed(Duration(milliseconds: i * 200), () {
-        if (mounted) {
-          _cardControllers[i].forward();
+      Future.delayed(Duration(milliseconds: i * 150), () {
+        if (mounted && _wasVisible) {
+          _cardControllers[i].forward(from: 0.0);
         }
       });
+    }
+  }
+
+  void _resetAnimations() {
+    _mainAnimationController.reset();
+    for (var controller in _cardControllers) {
+      controller.reset();
     }
   }
 

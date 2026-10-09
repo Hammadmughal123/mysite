@@ -23,18 +23,15 @@ dependencies:
   flutter_svg: ^2.0.14
   # flip_card: ^0.6.0
   sizer: ^3.0.4
-  connectivity_plus: ^6.1.0
   url_launcher: ^6.3.1
   carousel_slider: ^5.0.0
   animated_text_kit: ^4.2.2
   scrollable_positioned_list: ^0.3.8
   flutter_animate: ^4.5.2
+  visibility_detector: ^0.4.0+2
 
   # web related
-  # flutter_html: any
-  # url_strategy: ^0.2.0
   universal_html: ^2.2.4
-  permission_handler: ^12.0.0+1
   path_provider: ^2.1.5
   share_plus: ^11.0.0
 
@@ -54,19 +51,13 @@ flutter:
     - assets/cv.pdf
 
   fonts:
-    - family: Montserrat
-      fonts:
-        - asset: assets/fonts/montserrat/montserrat.ttf
-
     - family: Poppins
       fonts:
         - asset: assets/fonts/poppins/Poppins-Regular.ttf
-        - asset: assets/fonts/poppins/Poppins-Light.ttf
-        - asset: assets/fonts/poppins/Poppins-Bold.ttf
-          weight: 900
+          weight: 400
         - asset: assets/fonts/poppins/Poppins-Medium.ttf
-          weight: 300
-        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
           weight: 500
-        - asset: assets/fonts/poppins/Poppins-Italic.ttf
-          style: italic
+        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/poppins/Poppins-Bold.ttf
+          weight: 700

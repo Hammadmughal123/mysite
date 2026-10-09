@@ -5,7 +5,6 @@ import 'package:mysite/app/widgets/arrow_on_top.dart';
 import 'package:mysite/app/widgets/whatsapp_floating_button.dart';
 import 'package:mysite/app/widgets/color_chage_btn.dart';
 import 'package:mysite/changes/links.dart';
-import 'package:mysite/core/apis/links.dart';
 import 'package:mysite/core/color/colors.dart';
 import 'package:mysite/core/configs/app.dart';
 import 'package:mysite/core/configs/configs.dart';
@@ -22,7 +21,9 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 import 'package:mysite/core/util/constants.dart';
 import 'package:sizer/sizer.dart';
+import 'package:mysite/core/animations/particle_field.dart';
 import 'package:mysite/core/animations/scroll_entrance_section.dart';
+import 'package:mysite/app/utils/cv/download_cv.dart';
 import '../services/services.dart';
 part 'widgets/_navbar_desktop.dart';
 part 'widgets/_mobile_drawer.dart';
@@ -53,23 +54,26 @@ class MainPage extends StatelessWidget {
         builder: (context, state) {
           return Stack(
             children: [
+              const Positioned.fill(child: ParticleField()),
               // GPU-optimized glowing gradient orb (top-left)
               Positioned(
                 top: height * 0.15,
                 left: -100,
-                child: IgnorePointer(
-                  child: Container(
-                    height: 380,
-                    width: 380,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          secondaryColor.withOpacity(0.35),
-                          secondaryColor.withOpacity(0.12),
-                          Colors.transparent,
-                        ],
-                        stops: const [0.0, 0.45, 1.0],
+                child: RepaintBoundary(
+                  child: IgnorePointer(
+                    child: Container(
+                      height: 380,
+                      width: 380,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: RadialGradient(
+                          colors: [
+                            secondaryColor.withOpacity(0.35),
+                            secondaryColor.withOpacity(0.12),
+                            Colors.transparent,
+                          ],
+                          stops: const [0.0, 0.45, 1.0],
+                        ),
                       ),
                     ),
                   ),
@@ -79,19 +83,21 @@ class MainPage extends StatelessWidget {
               Positioned(
                 bottom: -50,
                 right: -100,
-                child: IgnorePointer(
-                  child: Container(
-                    height: 420,
-                    width: 420,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          primaryColor.withOpacity(0.35),
-                          primaryColor.withOpacity(0.12),
-                          Colors.transparent,
-                        ],
-                        stops: const [0.0, 0.45, 1.0],
+                child: RepaintBoundary(
+                  child: IgnorePointer(
+                    child: Container(
+                      height: 420,
+                      width: 420,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: RadialGradient(
+                          colors: [
+                            primaryColor.withOpacity(0.35),
+                            primaryColor.withOpacity(0.12),
+                            Colors.transparent,
+                          ],
+                          stops: const [0.0, 0.45, 1.0],
+                        ),
                       ),
                     ),
                   ),
@@ -102,6 +108,7 @@ class MainPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Image.asset(
                     'assets/imgs/5424482.jpg',
+                    cacheWidth: 1200,
                     opacity: const AlwaysStoppedAnimation<double>(0.2),
                     width: width,
                     height: height,
@@ -109,7 +116,7 @@ class MainPage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                   ),
                 ),
-              _Body(),
+              RepaintBoundary(child: _Body()),
               const ArrowOnTop(),
               const WhatsAppFloatingButton(),
             ],

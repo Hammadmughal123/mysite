@@ -207,48 +207,5 @@ class _ServiceCardState extends State<_ServiceCard> {
   }
 }
 
-Future<void> downloadCV() async {
-  if (kIsWeb) {
-    try {
-      final anchor = html.AnchorElement(href: 'cv.pdf')
-        ..setAttribute("download", "Hammad_Ramzan_CV.pdf")
-        ..target = "_blank";
-      html.document.body?.append(anchor);
-      anchor.click();
-      anchor.remove();
-
-      // On mobile browsers (iOS Safari, Android Chrome), HTML5 download
-      // attribute can be suppressed. Opening directly in new tab guarantees
-      // mobile users can view/save the PDF directly.
-      final userAgent = html.window.navigator.userAgent.toLowerCase();
-      final isMobileDevice = userAgent.contains('mobile') ||
-          userAgent.contains('android') ||
-          userAgent.contains('iphone') ||
-          userAgent.contains('ipad');
-      if (isMobileDevice) {
-        html.window.open('cv.pdf', '_blank');
-      }
-    } catch (e) {
-      html.window.open('cv.pdf', '_blank');
-    }
-  } else {
-    // Native Mobile (Android / iOS)
-    try {
-      final ByteData byteData = await rootBundle.load('assets/cv.pdf');
-      final Uint8List pdfBytes = byteData.buffer.asUint8List();
-      final Directory tempDir = await getTemporaryDirectory();
-      final File file = File('${tempDir.path}/Hammad_Ramzan_CV.pdf');
-      await file.writeAsBytes(pdfBytes);
-
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        text: 'Hammad Ramzan Resume',
-        subject: 'Hammad Ramzan CV',
-      );
-    } catch (e) {
-      print('Mobile download error: $e');
-    }
-  }
-}
 
 

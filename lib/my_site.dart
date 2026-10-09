@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysite/app/sections/main/main_section.dart';
 import 'package:mysite/core/configs/configs.dart';
-import 'package:mysite/core/configs/connection/bloc/connected_bloc.dart';
-import 'package:mysite/core/configs/connection/network_check.dart';
 import 'package:mysite/core/providers/drawer_provider.dart';
 import 'package:mysite/core/providers/scroll_provider.dart';
 import 'package:mysite/core/theme/cubit/theme_cubit.dart';
@@ -15,12 +13,8 @@ class MySite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-
-      providers: [
-        BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
-        BlocProvider<ConnectedBloc>(create: (context) => ConnectedBloc()),
-      ],
+    return BlocProvider<ThemeCubit>(
+      create: (_) => ThemeCubit(),
       child: MultiProvider(
         providers: [
 

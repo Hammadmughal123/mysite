@@ -3,8 +3,9 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ScrollProvider extends ChangeNotifier {
   final ItemScrollController itemScrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
-  final Duration scrollDuration = const Duration(milliseconds: 800);
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final Duration scrollDuration = const Duration(milliseconds: 900);
 
   final Set<int> _visibleIndices = {0};
   Set<int> get visibleIndices => _visibleIndices;
@@ -16,20 +17,54 @@ class ScrollProvider extends ChangeNotifier {
   void _onPositionsChanged() {
     final positions = itemPositionsListener.itemPositions.value;
     bool updated = false;
+    final Set<int> newlyVisible = {};
+
+    // Check if the user is currently at the top of Home section (index 0)
+    final bool isAtVeryTop = positions.any(
+      (p) => p.index == 0 && p.itemLeadingEdge >= -0.05,
+    );
+
     for (final pos in positions) {
-      // If any portion of the item is within or near the visible viewport
-      if (pos.itemLeadingEdge < 0.95 && pos.itemTrailingEdge > 0.05) {
-        if (_visibleIndices.add(pos.index)) {
-          updated = true;
-        }
+      if (pos.index == 0) {
+        newlyVisible.add(0);
+        continue;
+      }
+
+      // If user is parked at the very top of Home, lower sections must NOT trigger entrance yet!
+      if (isAtVeryTop) continue;
+
+      // Section is considered in view when its top edge has scrolled well into the screen
+      // and bottom edge has not scrolled away above.
+      if (pos.itemLeadingEdge < 0.72 && pos.itemTrailingEdge > 0.12) {
+        newlyVisible.add(pos.index);
       }
     }
+
+    if (newlyVisible.isEmpty) {
+      newlyVisible.add(0);
+    }
+
+    for (int i = 0; i <= 6; i++) {
+      final bool nowVisible = newlyVisible.contains(i);
+      final bool wasVisible = _visibleIndices.contains(i);
+      if (nowVisible != wasVisible) {
+        if (nowVisible) {
+          _visibleIndices.add(i);
+        } else {
+          _visibleIndices.remove(i);
+        }
+        updated = true;
+      }
+    }
+
     if (updated) {
       notifyListeners();
     }
   }
 
   bool isVisible(int index) => _visibleIndices.contains(index);
+
+  bool isSectionVisible(int index) => _visibleIndices.contains(index);
 
   void markVisible(int index) {
     if (_visibleIndices.add(index)) {
@@ -38,8 +73,11 @@ class ScrollProvider extends ChangeNotifier {
   }
 
   void jumpTo(int index) {
-    _visibleIndices.add(index);
+    // When clicking a navbar item, reset target section visibility
+    // so it will animate fresh when the user scrolls into it!
+    _visibleIndices.remove(index);
     notifyListeners();
+
     if (itemScrollController.isAttached) {
       itemScrollController.scrollTo(
         index: index,
@@ -48,6 +86,14 @@ class ScrollProvider extends ChangeNotifier {
         alignment: 0,
       );
     }
+
+    // Trigger entrance animation right as the scroll completes
+    Future.delayed(const Duration(milliseconds: 550), () {
+      if (!_visibleIndices.contains(index)) {
+        _visibleIndices.add(index);
+        notifyListeners();
+      }
+    });
   }
 
   @override

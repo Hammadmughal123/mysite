@@ -27,8 +27,8 @@ class _NavBarActionButtonState extends State<NavBarActionButton> {
     var theme = Theme.of(context);
     return EntranceFader(
       offset: const Offset(0, -10),
-      delay: const Duration(milliseconds: 1000),
-      duration: const Duration(milliseconds: 250),
+      delay: Duration(milliseconds: 80 + (widget.index * 70)),
+      duration: const Duration(milliseconds: 450),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 3),
         decoration: BoxDecoration(

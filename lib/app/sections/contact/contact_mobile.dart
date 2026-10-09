@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mysite/app/utils/contact_utils.dart';
 import 'package:mysite/app/widgets/custom_text_heading.dart';
+import 'package:mysite/core/animations/scroll_reveal.dart';
 import 'package:mysite/app/widgets/social_icon_button.dart';
 import 'package:mysite/changes/links.dart';
 import 'package:mysite/changes/strings.dart';
@@ -14,7 +15,9 @@ class ContactMobileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ScrollReveal(
+      detectorKey: 'contact-mobile',
+      child: Column(
       children: [
         Space.y(10.w)!,
         CustomSectionHeading(text: contactHeadding),
@@ -55,6 +58,7 @@ class ContactMobileTab extends StatelessWidget {
         Space.y(5.w)!,
         Container(color: Colors.white.withOpacity(0.2), height: 1),
       ],
+      ),
     );
   }
 }

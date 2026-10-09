@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mysite/app/utils/contact_utils.dart';
 import 'package:mysite/app/widgets/custom_text_heading.dart';
 import 'package:mysite/app/widgets/social_icon_button.dart';
+import 'package:mysite/core/animations/scroll_reveal.dart';
 import 'package:mysite/changes/links.dart';
 import 'package:mysite/changes/strings.dart';
 import 'package:mysite/core/color/colors.dart';
@@ -22,14 +23,24 @@ class ContactDesktop extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: size.width / 8),
       child: Column(
         children: [
-          const CustomSectionHeading(text: "\nGet in Touch"),
+          const ScrollReveal(
+            detectorKey: 'contact-heading',
+            child: CustomSectionHeading(text: "\nGet in Touch"),
+          ),
           Space.y(1.w)!,
-          const CustomSectionSubHeading(
-            text:
-                "If you want to avail my services you can contact me at the links below.",
+          const ScrollReveal(
+            detectorKey: 'contact-subheading',
+            delay: Duration(milliseconds: 80),
+            child: CustomSectionSubHeading(
+              text:
+                  "If you want to avail my services you can contact me at the links below.",
+            ),
           ),
           Space.y(2.w)!,
-          Container(
+          ScrollReveal(
+            detectorKey: 'contact-card',
+            delay: const Duration(milliseconds: 140),
+            child: Container(
             padding: EdgeInsets.all(size.width * 0.05).copyWith(bottom: 10),
             decoration: BoxDecoration(
               gradient: theme.contactCard,
@@ -107,8 +118,8 @@ class ContactDesktop extends StatelessWidget {
                 ),
               ],
             ),
+            ),
           ),
-          // Space.y!,
         ],
       ),
     );

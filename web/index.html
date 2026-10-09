@@ -1,23 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="Hammad Ramzan - Mobile Application Developer specializing in Flutter, Firebase, iOS & Android development.">
 
   <!-- iOS meta tags & icons -->
@@ -32,26 +20,154 @@
   <title>Hammad Ramzan | Flutter & Mobile Developer</title>
   <link rel="manifest" href="manifest.json">
 
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+  <!-- Preconnect for fast CDN asset resolution -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+    html, body {
+      background-color: #0e0d17;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 50% 45%, #181628 0%, #0d0c16 100%);
+      z-index: 999999;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .loader-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px;
+    }
+    .brand-squircle {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(9, 251, 211, 0.12), rgba(254, 83, 187, 0.12));
+      border: 1.5px solid rgba(9, 251, 211, 0.45);
+      box-shadow: 0 0 28px rgba(9, 251, 211, 0.22), 0 0 50px rgba(254, 83, 187, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      animation: pulse-glow 2.4s ease-in-out infinite;
+    }
+    .brand-initials {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 0 16px rgba(9, 251, 211, 0.5);
+    }
+    .brand-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+      margin: 0 0 6px 0;
+    }
+    .brand-role {
+      font-size: 12px;
+      font-weight: 600;
+      color: #09FBD3;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      margin: 0 0 22px 0;
+      opacity: 0.9;
+    }
+    .progress-track {
+      width: 180px;
+      height: 3.5px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-beam {
+      position: absolute;
+      top: 0;
+      left: -60%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, #09FBD3, #FE53BB, transparent);
+      border-radius: 999px;
+      animation: progress-sweep 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .loading-hint {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.4px;
+      margin-top: 12px;
+      animation: pulse-text 2s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 28px rgba(9, 251, 211, 0.22), 0 0 50px rgba(254, 83, 187, 0.12);
+      }
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 38px rgba(9, 251, 211, 0.35), 0 0 65px rgba(254, 83, 187, 0.22);
+      }
+    }
+    @keyframes progress-sweep {
+      0% { left: -60%; }
+      100% { left: 100%; }
+    }
+    @keyframes pulse-text {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 0.75; }
+    }
+  </style>
 </head>
 <body>
+  <div id="loading-screen">
+    <div class="loader-card">
+      <div class="brand-squircle">
+        <span class="brand-initials">HR</span>
+      </div>
+      <h1 class="brand-name">Hammad Ramzan</h1>
+      <p class="brand-role">Flutter & Mobile Developer</p>
+      <div class="progress-track">
+        <div class="progress-beam"></div>
+      </div>
+      <span class="loading-hint">Loading portfolio...</span>
+    </div>
+  </div>
   <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
+    {{flutter_js}}
+    {{flutter_build_config}}
+
+    _flutter.loader.load({
+      onEntrypointLoaded: async function(engineInitializer) {
+        const appRunner = await engineInitializer.initializeEngine();
+        const loader = document.getElementById('loading-screen');
+        if (loader) {
+          loader.style.opacity = '0';
+          loader.style.pointerEvents = 'none';
+          setTimeout(function() { loader.remove(); }, 350);
         }
-      }).then(function(engineInitializer) {
-        return engineInitializer.initializeEngine();
-      }).then(function(appRunner) {
-        return appRunner.runApp();
-      });
+        await appRunner.runApp();
+      }
     });
   </script>
 </body>

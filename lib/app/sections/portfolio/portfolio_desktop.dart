@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:mysite/app/utils/project_utils.dart';
 import 'package:mysite/app/widgets/custom_text_heading.dart';
 import 'package:mysite/changes/links.dart';
 import 'package:mysite/changes/strings.dart';
+import 'package:mysite/core/animations/scroll_reveal.dart';
 import 'package:mysite/core/configs/configs.dart';
 import 'package:mysite/core/util/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -27,9 +27,16 @@ class _PortfolioDesktopState extends State<PortfolioDesktop> {
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 30),
       child: Column(
         children: [
-          const CustomSectionHeading(text: "\nProjects"),
+          const ScrollReveal(
+            detectorKey: 'projects-heading',
+            child: CustomSectionHeading(text: "\nProjects"),
+          ),
           Space.y(1.w)!,
-          CustomSectionSubHeading(text: protfolioSubHeading),
+          ScrollReveal(
+            detectorKey: 'projects-subheading',
+            delay: const Duration(milliseconds: 80),
+            child: CustomSectionSubHeading(text: protfolioSubHeading),
+          ),
           Space.y(2.w)!,
           Wrap(
             alignment: WrapAlignment.center,
@@ -40,19 +47,16 @@ class _PortfolioDesktopState extends State<PortfolioDesktop> {
                 .asMap()
                 .entries
                 .map(
-                  (e) => ProjectCard(project: e.value)
-                      .animate(delay: (e.key * 100).ms)
-                      .fadeIn(duration: 500.ms, curve: Curves.easeOutCubic)
-                      .slideY(
-                          begin: 0.18,
-                          end: 0,
-                          duration: 500.ms,
-                          curve: Curves.easeOutCubic)
-                      .scale(
-                        begin: const Offset(0.95, 0.95),
-                        end: const Offset(1, 1),
-                        curve: Curves.easeOutCubic,
-                      ),
+                  (e) {
+                    final bool fromRight = e.key % 2 != 0;
+                    return ScrollReveal(
+                      detectorKey: 'project-${e.key}',
+                      duration: const Duration(milliseconds: 1050),
+                      delay: Duration(milliseconds: 120 + e.key * 100),
+                      beginOffset: Offset(fromRight ? 55.0 : -55.0, 24),
+                      child: ProjectCard(project: e.value),
+                    );
+                  },
                 )
                 .toList(),
           ),

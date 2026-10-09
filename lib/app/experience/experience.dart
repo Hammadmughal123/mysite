@@ -1,13 +1,12 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:mysite/core/animations/scroll_reveal.dart';
+import 'package:mysite/core/animations/scroll_entrance_section.dart';
 import 'package:mysite/core/configs/configs.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../core/color/colors.dart';
 import '../../../../core/res/responsive.dart';
-
-// import '../../core/color/colors.dart';
-// import '../../core/res/responsive.dart';
 
 class SkillsSection extends StatefulWidget {
   const SkillsSection({Key? key}) : super(key: key);
@@ -27,12 +26,26 @@ class _SkillsSectionState extends State<SkillsSection>
 
   // Hover states for each card
   List<bool> _hoverStates = [];
+  bool _wasVisible = false;
 
   @override
   void initState() {
     super.initState();
     _initializeAnimations();
-    _startAnimations();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final bool isVisible = SectionVisibilityScope.of(context);
+    if (isVisible != _wasVisible) {
+      _wasVisible = isVisible;
+      if (isVisible) {
+        _startAnimations();
+      } else {
+        _resetAnimations();
+      }
+    }
   }
 
   void _initializeAnimations() {
@@ -92,19 +105,21 @@ class _SkillsSectionState extends State<SkillsSection>
   }
 
   void _startAnimations() async {
-    // Start main animation immediately
-    _mainAnimationController.forward();
-
-    // Wait for main animation to start, then begin skill animations
-    await Future.delayed(const Duration(milliseconds: 800));
-
-    // Staggered skill animations
+    _mainAnimationController.forward(from: 0.0);
+    await Future.delayed(const Duration(milliseconds: 350));
     for (int i = 0; i < _skillControllers.length; i++) {
-      Future.delayed(Duration(milliseconds: i * 100), () {
-        if (mounted) {
-          _skillControllers[i].forward();
+      Future.delayed(Duration(milliseconds: i * 80), () {
+        if (mounted && _wasVisible) {
+          _skillControllers[i].forward(from: 0.0);
         }
       });
+    }
+  }
+
+  void _resetAnimations() {
+    _mainAnimationController.reset();
+    for (var controller in _skillControllers) {
+      controller.reset();
     }
   }
 
@@ -121,7 +136,7 @@ class _SkillsSectionState extends State<SkillsSection>
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -200,6 +215,33 @@ class _SkillsSectionState extends State<SkillsSection>
   Widget _buildSkillsGrid(ThemeData theme) {
     final skillsData = _getSkillsData();
 
+    if (Responsive.isMobile(context)) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: CarouselSlider.builder(
+          itemCount: skillsData.length,
+          itemBuilder: (context, index, realIndex) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+            child: _buildEnhancedSkillCard(
+              skillsData[index],
+              theme,
+              index,
+            ),
+          ),
+          options: CarouselOptions(
+            viewportFraction: 0.84,
+            height: 380,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 4),
+            enlargeCenterPage: true,
+            autoPlayCurve: Curves.fastOutSlowIn,
+            autoPlayAnimationDuration: const Duration(milliseconds: 600),
+            enableInfiniteScroll: false,
+          ),
+        ),
+      );
+    }
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 1400),
       child: GridView.builder(
@@ -207,31 +249,31 @@ class _SkillsSectionState extends State<SkillsSection>
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: _getCrossAxisCount(),
-          crossAxisSpacing: Responsive.isMobile(context) ? 16 : 28,
-          mainAxisSpacing: Responsive.isMobile(context) ? 16 : 28,
-          childAspectRatio: Responsive.isMobile(context)
-              ? 0.96
-              : (Responsive.isTablet(context) ? 0.9 : 0.95),
+          crossAxisSpacing: Responsive.isTablet(context) ? 20 : 28,
+          mainAxisSpacing: Responsive.isTablet(context) ? 20 : 28,
+          childAspectRatio: Responsive.isTablet(context) ? 0.9 : 0.95,
         ),
         itemCount: skillsData.length,
         itemBuilder: (context, index) {
-          return _buildEnhancedSkillCard(
-            skillsData[index],
-            theme,
-            index,
-          )
-              .animate(delay: (index * 90).ms)
-              .fadeIn(duration: 500.ms, curve: Curves.easeOutCubic)
-              .slideY(
-                  begin: 0.18,
-                  end: 0,
-                  duration: 500.ms,
-                  curve: Curves.easeOutCubic)
-              .scale(
-                begin: const Offset(0.95, 0.95),
-                end: const Offset(1, 1),
-                curve: Curves.easeOutCubic,
-              );
+          final int crossAxisCount = _getCrossAxisCount();
+          final int col = index % crossAxisCount;
+          final double slideX = crossAxisCount == 3
+              ? (col == 0 ? -55.0 : (col == 2 ? 55.0 : 0.0))
+              : (col == 0 ? -55.0 : 55.0);
+          final double slideY =
+              (crossAxisCount == 3 && col == 1) ? 45.0 : 25.0;
+
+          return ScrollReveal(
+            detectorKey: 'skill-$index',
+            duration: const Duration(milliseconds: 1050),
+            delay: Duration(milliseconds: 120 + index * 90),
+            beginOffset: Offset(slideX, slideY),
+            child: _buildEnhancedSkillCard(
+              skillsData[index],
+              theme,
+              index,
+            ),
+          );
         },
       ),
     );
