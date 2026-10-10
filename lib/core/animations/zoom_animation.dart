@@ -4,7 +4,7 @@ import 'package:mysite/core/theme/app_theme.dart';
 
 class ZoomAnimations extends StatefulWidget {
   final double? size;
-  const ZoomAnimations({Key? key, this.size}) : super(key: key);
+  const ZoomAnimations({super.key, this.size});
 
   @override
   State<ZoomAnimations> createState() => _ZoomAnimationsState();
@@ -100,12 +100,12 @@ class _ZoomAnimationsState extends State<ZoomAnimations>
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: theme.primaryColor.withOpacity(0.35),
+                      color: theme.primaryColor.withValues(alpha: 0.35),
                       blurRadius: 32,
                       spreadRadius: 2,
                     ),
                     BoxShadow(
-                      color: theme.secondaryColor.withOpacity(0.25),
+                      color: theme.secondaryColor.withValues(alpha: 0.25),
                       blurRadius: 48,
                       spreadRadius: 4,
                     ),
@@ -122,8 +122,8 @@ class _ZoomAnimationsState extends State<ZoomAnimations>
                     end: Alignment.bottomRight,
                     colors: [
                       theme.secondaryColor,
-                      theme.secondaryColor.withOpacity(0.4),
-                      theme.primaryColor.withOpacity(0.4),
+                      theme.secondaryColor.withValues(alpha: 0.4),
+                      theme.primaryColor.withValues(alpha: 0.4),
                       theme.primaryColor,
                     ],
                     stops: const [0.1, 0.4, 0.7, 1.0],
@@ -131,12 +131,12 @@ class _ZoomAnimationsState extends State<ZoomAnimations>
                   child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.black.withValues(alpha: 0.8),
                       image: const DecorationImage(
                         fit: BoxFit.cover,
                         alignment: Alignment.center,
                         image: ResizeImage(
-                          AssetImage('assets/imgs/IMG0107.jpeg'),
+                          AssetImage('assets/imgs/IMG0107.png'),
                           width: 500,
                           height: 500,
                         ),

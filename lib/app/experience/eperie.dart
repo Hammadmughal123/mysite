@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import '../../core/animations/scroll_entrance_section.dart';
 
 import '../../core/res/responsive.dart';
 
 class ExperienceSection extends StatefulWidget {
-  const ExperienceSection({Key? key}) : super(key: key);
+  const ExperienceSection({super.key});
 
   @override
   State<ExperienceSection> createState() => _ExperienceSectionState();
@@ -126,9 +125,9 @@ class _ExperienceSectionState extends State<ExperienceSection>
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.black.withOpacity(0.1),
+            Colors.black.withValues(alpha: 0.1),
             Colors.transparent,
-            Colors.black.withOpacity(0.1),
+            Colors.black.withValues(alpha: 0.1),
           ],
         ),
       ),
@@ -185,7 +184,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: Responsive.isMobile(context) ? 16 : 18,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                     fontWeight: FontWeight.w300,
                     letterSpacing: 0.3,
                     height: 1.5,
@@ -210,7 +209,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
                 borderRadius: BorderRadius.circular(2),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.purple.withOpacity(0.4),
+                    color: Colors.purple.withValues(alpha: 0.4),
                     blurRadius: 15,
                     spreadRadius: 2,
                   ),
@@ -248,8 +247,8 @@ class _ExperienceSectionState extends State<ExperienceSection>
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Colors.purple.withOpacity(0.8),
-                          Colors.purple.withOpacity(0.4),
+                          Colors.purple.withValues(alpha: 0.8),
+                          Colors.purple.withValues(alpha: 0.4),
                           Colors.transparent,
                         ],
                       ),
@@ -321,7 +320,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
           const Expanded(flex: 5, child: SizedBox()),
 
         // Timeline dot
-        Container(
+        SizedBox(
           width: 80,
           child: Center(
             child: Container(
@@ -337,7 +336,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.purple.withOpacity(0.6),
+                    color: Colors.purple.withValues(alpha: 0.6),
                     blurRadius: 15,
                     spreadRadius: 3,
                   ),
@@ -383,25 +382,25 @@ class _ExperienceSectionState extends State<ExperienceSection>
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.grey.shade900.withOpacity(0.8),
-            Colors.grey.shade800.withOpacity(0.6),
-            Colors.grey.shade900.withOpacity(0.8),
+            Colors.grey.shade900.withValues(alpha: 0.8),
+            Colors.grey.shade800.withValues(alpha: 0.6),
+            Colors.grey.shade900.withValues(alpha: 0.8),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: Colors.purple.withOpacity(0.3),
+          color: Colors.purple.withValues(alpha: 0.3),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black.withValues(alpha: 0.3),
             blurRadius: 20,
             spreadRadius: 2,
             offset: const Offset(0, 10),
           ),
           BoxShadow(
-            color: Colors.purple.withOpacity(0.1),
+            color: Colors.purple.withValues(alpha: 0.1),
             blurRadius: 40,
             spreadRadius: 0,
             offset: const Offset(0, 20),
@@ -424,7 +423,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
               Flexible(
                 child: Text(
                   experience['company'],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
                     color: Colors.white,
@@ -465,7 +464,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
             experience['duration'],
             style: TextStyle(
               fontSize: 14,
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
               fontWeight: FontWeight.w400,
             ),
             textAlign: alignment == CrossAxisAlignment.start
@@ -480,7 +479,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
             experience['description'],
             style: TextStyle(
               fontSize: 15,
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               height: 1.6,
               letterSpacing: 0.1,
             ),
@@ -520,7 +519,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.purple.withOpacity(0.3),
+            color: Colors.purple.withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -544,18 +543,18 @@ class _ExperienceSectionState extends State<ExperienceSection>
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.purple.withOpacity(0.2),
-            Colors.purple.withOpacity(0.1),
+            Colors.purple.withValues(alpha: 0.2),
+            Colors.purple.withValues(alpha: 0.1),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: Colors.purple.withOpacity(0.4),
+          color: Colors.purple.withValues(alpha: 0.4),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.purple.withOpacity(0.2),
+            color: Colors.purple.withValues(alpha: 0.2),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -565,7 +564,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
         tech,
         style: TextStyle(
           fontSize: 12,
-          color: Colors.white.withOpacity(0.9),
+          color: Colors.white.withValues(alpha: 0.9),
           fontWeight: FontWeight.w500,
           letterSpacing: 0.2,
         ),
@@ -629,7 +628,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.purple.withOpacity(0.4),
+                    color: Colors.purple.withValues(alpha: 0.4),
                     blurRadius: 10,
                     spreadRadius: 2,
                   ),
@@ -653,8 +652,8 @@ class _ExperienceSectionState extends State<ExperienceSection>
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.purple.withOpacity(0.6),
-                      Colors.purple.withOpacity(0.2),
+                      Colors.purple.withValues(alpha: 0.6),
+                      Colors.purple.withValues(alpha: 0.2),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(1),
@@ -675,19 +674,19 @@ class _ExperienceSectionState extends State<ExperienceSection>
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Colors.grey.shade900.withOpacity(0.8),
-                  Colors.grey.shade800.withOpacity(0.6),
-                  Colors.grey.shade900.withOpacity(0.8),
+                  Colors.grey.shade900.withValues(alpha: 0.8),
+                  Colors.grey.shade800.withValues(alpha: 0.6),
+                  Colors.grey.shade900.withValues(alpha: 0.8),
                 ],
               ),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: Colors.purple.withOpacity(0.2),
+                color: Colors.purple.withValues(alpha: 0.2),
                 width: 1,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withValues(alpha: 0.2),
                   blurRadius: 15,
                   spreadRadius: 1,
                   offset: const Offset(0, 8),
@@ -727,7 +726,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
                   experience['duration'],
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.white.withValues(alpha: 0.7),
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -736,7 +735,7 @@ class _ExperienceSectionState extends State<ExperienceSection>
                   experience['description'],
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                     height: 1.5,
                   ),
                 ),

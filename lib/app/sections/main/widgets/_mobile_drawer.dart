@@ -1,7 +1,7 @@
 part of '../main_section.dart';
 
 class _MobileDrawer extends StatelessWidget {
-  const _MobileDrawer({Key? key}) : super(key: key);
+  const _MobileDrawer();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _MobileDrawer extends StatelessWidget {
                           Text(state.isDarkThemeOn ? "Dark Mode" : "Light Mode"),
                       trailing: Switch(
                         value: state.isDarkThemeOn,
-                        activeColor: theme.primaryColor,
+                        activeThumbColor: theme.primaryColor,
                         inactiveTrackColor: Colors.grey,
                         onChanged: (newValue) {
                           context.read<ThemeCubit>().updateTheme(newValue);

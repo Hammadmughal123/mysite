@@ -8,11 +8,11 @@ class SectionVisibilityScope extends InheritedWidget {
   final int sectionIndex;
 
   const SectionVisibilityScope({
-    Key? key,
+    super.key,
     required this.isVisible,
     required this.sectionIndex,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   static bool of(BuildContext context) {
     final scope =
@@ -38,10 +38,10 @@ class ScrollEntranceSection extends StatelessWidget {
   final int index;
 
   const ScrollEntranceSection({
-    Key? key,
+    super.key,
     required this.child,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

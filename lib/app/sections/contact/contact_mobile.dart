@@ -11,7 +11,7 @@ import 'package:mysite/core/util/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class ContactMobileTab extends StatelessWidget {
-  const ContactMobileTab({Key? key}) : super(key: key);
+  const ContactMobileTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class ContactMobileTab extends StatelessWidget {
               .toList(),
         ),
         Space.y(5.w)!,
-        Container(color: Colors.white.withOpacity(0.2), height: 1),
+        Container(color: Colors.white.withValues(alpha: 0.2), height: 1),
       ],
       ),
     );

@@ -3,7 +3,6 @@
 import 'package:mysite/app/sections/home/widgets/animation_text.dart';
 import 'package:mysite/app/utils/cv/download_cv.dart';
 import 'package:mysite/core/animations/zoom_animation.dart';
-import 'package:sizer/sizer.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:mysite/app/widgets/color_chage_btn.dart';
@@ -13,7 +12,7 @@ import 'package:mysite/core/animations/entrance_fader.dart';
 import 'package:mysite/core/configs/configs.dart';
 
 class HomeDesktop extends StatelessWidget {
-  const HomeDesktop({Key? key}) : super(key: key);
+  const HomeDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +109,7 @@ class HomeDesktop extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: theme.textColor.withOpacity(0.7),
+                            color: theme.textColor.withValues(alpha: 0.7),
                             height: 1.6,
                           ),
                         ),

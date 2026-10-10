@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class MySite extends StatelessWidget {
-  const MySite({Key? key}) : super(key: key);
+  const MySite({super.key});
 
   @override
   Widget build(BuildContext context) {

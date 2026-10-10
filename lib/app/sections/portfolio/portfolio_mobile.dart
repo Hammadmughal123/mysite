@@ -11,7 +11,7 @@ import 'package:sizer/sizer.dart';
 import 'widgets/project_card.dart';
 
 class PortfolioMobileTab extends StatelessWidget {
-  const PortfolioMobileTab({Key? key}) : super(key: key);
+  const PortfolioMobileTab({super.key});
 
   @override
   Widget build(BuildContext context) {

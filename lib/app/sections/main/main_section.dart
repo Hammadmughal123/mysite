@@ -1,10 +1,9 @@
-import 'dart:ui';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysite/app/widgets/arrow_on_top.dart';
 import 'package:mysite/app/widgets/whatsapp_floating_button.dart';
 import 'package:mysite/app/widgets/color_chage_btn.dart';
-import 'package:mysite/changes/links.dart';
+// import 'package:mysite/changes/links.dart';
 import 'package:mysite/core/color/colors.dart';
 import 'package:mysite/core/configs/app.dart';
 import 'package:mysite/core/configs/configs.dart';
@@ -19,18 +18,18 @@ import 'package:mysite/core/theme/cubit/theme_cubit.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
-import 'package:mysite/core/util/constants.dart';
+// import 'package:mysite/core/util/constants.dart';
 import 'package:sizer/sizer.dart';
 import 'package:mysite/core/animations/particle_field.dart';
 import 'package:mysite/core/animations/scroll_entrance_section.dart';
 import 'package:mysite/app/utils/cv/download_cv.dart';
-import '../services/services.dart';
+// import '../services/services.dart';
 part 'widgets/_navbar_desktop.dart';
 part 'widgets/_mobile_drawer.dart';
 part 'widgets/_body.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +67,8 @@ class MainPage extends StatelessWidget {
                         shape: BoxShape.circle,
                         gradient: RadialGradient(
                           colors: [
-                            secondaryColor.withOpacity(0.35),
-                            secondaryColor.withOpacity(0.12),
+                            secondaryColor.withValues(alpha: 0.35),
+                            secondaryColor.withValues(alpha: 0.12),
                             Colors.transparent,
                           ],
                           stops: const [0.0, 0.45, 1.0],
@@ -92,8 +91,8 @@ class MainPage extends StatelessWidget {
                         shape: BoxShape.circle,
                         gradient: RadialGradient(
                           colors: [
-                            primaryColor.withOpacity(0.35),
-                            primaryColor.withOpacity(0.12),
+                            primaryColor.withValues(alpha: 0.35),
+                            primaryColor.withValues(alpha: 0.12),
                             Colors.transparent,
                           ],
                           stops: const [0.0, 0.45, 1.0],

@@ -11,7 +11,7 @@ import 'package:mysite/core/util/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class ContactDesktop extends StatelessWidget {
-  const ContactDesktop({Key? key}) : super(key: key);
+  const ContactDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class ContactDesktop extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300,
-                                color: theme.textColor.withOpacity(0.8),
+                                color: theme.textColor.withValues(alpha: 0.8),
                               ),
                             ),
                           ],
@@ -103,7 +103,7 @@ class ContactDesktop extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 24),
-                Container(color: Colors.white.withOpacity(0.15), height: 1),
+                Container(color: Colors.white.withValues(alpha: 0.15), height: 1),
                 const SizedBox(height: 24),
                 Wrap(
                   alignment: WrapAlignment.center,

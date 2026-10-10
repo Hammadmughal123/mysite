@@ -12,6 +12,7 @@ Future<void> downloadCVImpl() async {
     final Directory tempDir = await getTemporaryDirectory();
     final File file = File('${tempDir.path}/Hammad_Ramzan_CV.pdf');
     await file.writeAsBytes(pdfBytes);
+    // ignore: deprecated_member_use
     await Share.shareXFiles(
       [XFile(file.path)],
       text: 'Hammad Ramzan Resume',

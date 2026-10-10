@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mysite/core/animations/entrance_fader.dart';
 import 'package:mysite/core/color/colors.dart';
 import 'package:mysite/core/providers/scroll_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
 
 class ArrowOnTop extends StatefulWidget {
-  const ArrowOnTop({Key? key}) : super(key: key);
+  const ArrowOnTop({super.key});
 
   @override
   ArrowOnTopState createState() => ArrowOnTopState();
@@ -43,7 +41,7 @@ class ArrowOnTopState extends State<ArrowOnTop> {
                 gradient: isHover ? buttonGradi : pinkpurple,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.purple.withOpacity(isHover ? 0.6 : 0.3),
+                    color: Colors.purple.withValues(alpha: isHover ? 0.6 : 0.3),
                     blurRadius: isHover ? 16 : 8,
                     spreadRadius: isHover ? 2 : 0,
                     offset: const Offset(0, 3),

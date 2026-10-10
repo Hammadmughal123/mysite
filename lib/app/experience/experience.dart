@@ -9,7 +9,7 @@ import '../../../../core/color/colors.dart';
 import '../../../../core/res/responsive.dart';
 
 class SkillsSection extends StatefulWidget {
-  const SkillsSection({Key? key}) : super(key: key);
+  const SkillsSection({super.key});
 
   @override
   State<SkillsSection> createState() => _SkillsSectionState();
@@ -19,9 +19,7 @@ class _SkillsSectionState extends State<SkillsSection>
     with TickerProviderStateMixin {
   late AnimationController _mainAnimationController;
   late List<AnimationController> _skillControllers;
-  late List<Animation<double>> _skillAnimations;
   late Animation<double> _titleAnimation;
-  late Animation<double> _subtitleAnimation;
   late Animation<double> _underlineAnimation;
 
   // Hover states for each card
@@ -64,13 +62,6 @@ class _SkillsSectionState extends State<SkillsSection>
     ));
 
     // Subtitle animation
-    _subtitleAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _mainAnimationController,
-      curve: const Interval(0.2, 0.6, curve: Curves.easeOutCubic),
-    ));
 
     // Underline animation
     _underlineAnimation = Tween<double>(
@@ -93,15 +84,6 @@ class _SkillsSectionState extends State<SkillsSection>
       ),
     );
 
-    _skillAnimations = _skillControllers.map((controller) {
-      return Tween<double>(
-        begin: 0.0,
-        end: 1.0,
-      ).animate(CurvedAnimation(
-        parent: controller,
-        curve: Curves.elasticOut,
-      ));
-    }).toList();
   }
 
   void _startAnimations() async {
@@ -199,7 +181,7 @@ class _SkillsSectionState extends State<SkillsSection>
                 borderRadius: BorderRadius.circular(3),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.purple.withOpacity(0.3),
+                    color: Colors.purple.withValues(alpha: 0.3),
                     blurRadius: 15,
                     spreadRadius: 2,
                   ),
@@ -298,6 +280,7 @@ class _SkillsSectionState extends State<SkillsSection>
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutCubic,
+        // ignore: deprecated_member_use
         transform: Matrix4.identity()..translate(0.0, isHovered ? -8.0 : 0.0),
         padding: const EdgeInsets.symmetric(vertical: 26.0, horizontal: 22.0),
         decoration: BoxDecoration(
@@ -317,27 +300,27 @@ class _SkillsSectionState extends State<SkillsSection>
           borderRadius: BorderRadius.circular(22),
           border: Border.all(
             color: isHovered
-                ? primaryColor.withOpacity(0.7)
-                : Colors.white.withOpacity(0.08),
+                ? primaryColor.withValues(alpha: 0.7)
+                : Colors.white.withValues(alpha: 0.08),
             width: 1.5,
           ),
           boxShadow: isHovered
               ? [
                   BoxShadow(
-                    color: primaryColor.withOpacity(0.2),
+                    color: primaryColor.withValues(alpha: 0.2),
                     blurRadius: 24,
                     spreadRadius: 1,
                     offset: const Offset(0, 8),
                   ),
                   BoxShadow(
-                    color: secondaryColor.withOpacity(0.12),
+                    color: secondaryColor.withValues(alpha: 0.12),
                     blurRadius: 32,
                     offset: const Offset(0, 12),
                   ),
                 ]
               : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.35),
+                    color: Colors.black.withValues(alpha: 0.35),
                     blurRadius: 16,
                     offset: const Offset(0, 6),
                   ),
@@ -373,24 +356,24 @@ class _SkillsSectionState extends State<SkillsSection>
           end: Alignment.bottomRight,
           colors: isHovered
               ? [
-                  primaryColor.withOpacity(0.25),
-                  secondaryColor.withOpacity(0.2),
+                  primaryColor.withValues(alpha: 0.25),
+                  secondaryColor.withValues(alpha: 0.2),
                 ]
               : [
-                  primaryColor.withOpacity(0.12),
-                  secondaryColor.withOpacity(0.06),
+                  primaryColor.withValues(alpha: 0.12),
+                  secondaryColor.withValues(alpha: 0.06),
                 ],
         ),
         border: Border.all(
           color: isHovered
-              ? primaryColor.withOpacity(0.85)
-              : primaryColor.withOpacity(0.25),
+              ? primaryColor.withValues(alpha: 0.85)
+              : primaryColor.withValues(alpha: 0.25),
           width: 1.5,
         ),
         boxShadow: isHovered
             ? [
                 BoxShadow(
-                  color: primaryColor.withOpacity(0.35),
+                  color: primaryColor.withValues(alpha: 0.35),
                   blurRadius: 18,
                   offset: const Offset(0, 4),
                 ),
@@ -433,7 +416,7 @@ class _SkillsSectionState extends State<SkillsSection>
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontSize: 13,
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         fontWeight: FontWeight.w400,
         height: 1.55,
       ),
@@ -459,13 +442,13 @@ class _SkillsSectionState extends State<SkillsSection>
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
         color: cardHovered
-            ? primaryColor.withOpacity(0.15)
-            : Colors.white.withOpacity(0.05),
+            ? primaryColor.withValues(alpha: 0.15)
+            : Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: cardHovered
-              ? primaryColor.withOpacity(0.6)
-              : Colors.white.withOpacity(0.12),
+              ? primaryColor.withValues(alpha: 0.6)
+              : Colors.white.withValues(alpha: 0.12),
           width: 1,
         ),
       ),
@@ -473,7 +456,7 @@ class _SkillsSectionState extends State<SkillsSection>
         tech,
         style: TextStyle(
           fontSize: 12,
-          color: cardHovered ? primaryColor : Colors.white.withOpacity(0.85),
+          color: cardHovered ? primaryColor : Colors.white.withValues(alpha: 0.85),
           fontWeight: FontWeight.w600,
           letterSpacing: 0.2,
         ),

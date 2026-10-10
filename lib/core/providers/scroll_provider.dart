@@ -19,7 +19,7 @@ class ScrollProvider extends ChangeNotifier {
     bool updated = false;
     final Set<int> newlyVisible = {};
 
-    // Check if the user is currently at the top of Home section (index 0)
+    // Check if user is currently at the top of Home section (index 0)
     final bool isAtVeryTop = positions.any(
       (p) => p.index == 0 && p.itemLeadingEdge >= -0.05,
     );
@@ -30,11 +30,10 @@ class ScrollProvider extends ChangeNotifier {
         continue;
       }
 
-      // If user is parked at the very top of Home, lower sections must NOT trigger entrance yet!
+      // If user is parked at the very top of Home, lower sections must not trigger entrance
       if (isAtVeryTop) continue;
 
-      // Section is considered in view when its top edge has scrolled well into the screen
-      // and bottom edge has not scrolled away above.
+      // Section in view when scrolled into screen
       if (pos.itemLeadingEdge < 0.72 && pos.itemTrailingEdge > 0.12) {
         newlyVisible.add(pos.index);
       }
@@ -73,8 +72,6 @@ class ScrollProvider extends ChangeNotifier {
   }
 
   void jumpTo(int index) {
-    // When clicking a navbar item, reset target section visibility
-    // so it will animate fresh when the user scrolls into it!
     _visibleIndices.remove(index);
     notifyListeners();
 
@@ -87,7 +84,6 @@ class ScrollProvider extends ChangeNotifier {
       );
     }
 
-    // Trigger entrance animation right as the scroll completes
     Future.delayed(const Duration(milliseconds: 550), () {
       if (!_visibleIndices.contains(index)) {
         _visibleIndices.add(index);

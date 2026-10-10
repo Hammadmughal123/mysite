@@ -4,16 +4,13 @@ import 'package:mysite/app/sections/home/widgets/animation_text.dart';
 import 'package:mysite/app/utils/cv/download_cv.dart';
 import 'package:mysite/app/widgets/color_chage_btn.dart';
 import 'package:mysite/changes/img.dart';
-import 'package:mysite/changes/links.dart';
 import 'package:mysite/changes/strings.dart';
 import 'package:mysite/core/animations/entrance_fader.dart';
 import 'package:mysite/core/animations/zoom_animation.dart';
 import 'package:mysite/core/configs/configs.dart';
-import 'package:mysite/core/res/responsive_size.dart';
-import 'package:sizer/sizer.dart';
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +104,7 @@ class HomeTab extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
-                          color: theme.textColor.withOpacity(0.7),
+                          color: theme.textColor.withValues(alpha: 0.7),
                           height: 1.5,
                         ),
                       ),

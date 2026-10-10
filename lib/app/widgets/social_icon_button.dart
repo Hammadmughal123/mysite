@@ -8,10 +8,10 @@ class SocialIconButton extends StatefulWidget {
   final double size;
 
   const SocialIconButton({
-    Key? key,
+    super.key,
     required this.item,
     this.size = 46,
-  }) : super(key: key);
+  });
 
   @override
   State<SocialIconButton> createState() => _SocialIconButtonState();
@@ -34,25 +34,26 @@ class _SocialIconButtonState extends State<SocialIconButton> {
           duration: const Duration(milliseconds: 220),
           curve: Curves.easeOutCubic,
           transform: _isHovered
+              // ignore: deprecated_member_use
               ? (Matrix4.identity()..translate(0.0, -3.0, 0.0))
               : Matrix4.identity(),
           width: widget.size,
           height: widget.size,
           decoration: BoxDecoration(
             color: _isHovered
-                ? item.brandColor.withOpacity(0.22)
-                : Colors.white.withOpacity(0.06),
+                ? item.brandColor.withValues(alpha: 0.22)
+                : Colors.white.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: _isHovered
-                  ? item.brandColor.withOpacity(0.85)
-                  : Colors.white.withOpacity(0.12),
+                  ? item.brandColor.withValues(alpha: 0.85)
+                  : Colors.white.withValues(alpha: 0.12),
               width: 1.5,
             ),
             boxShadow: _isHovered
                 ? [
                     BoxShadow(
-                      color: item.brandColor.withOpacity(0.4),
+                      color: item.brandColor.withValues(alpha: 0.4),
                       blurRadius: 14,
                       spreadRadius: 1,
                       offset: const Offset(0, 4),
@@ -71,7 +72,7 @@ class _SocialIconButtonState extends State<SocialIconButton> {
                   width: widget.size * 0.48,
                   height: widget.size * 0.48,
                   colorFilter: ColorFilter.mode(
-                    _isHovered ? Colors.white : Colors.white.withOpacity(0.88),
+                    _isHovered ? Colors.white : Colors.white.withValues(alpha: 0.88),
                     BlendMode.srcIn,
                   ),
                 ),

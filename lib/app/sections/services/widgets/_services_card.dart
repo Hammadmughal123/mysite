@@ -6,11 +6,10 @@ class _ServiceCard extends StatefulWidget {
   final double cardHeight;
 
   const _ServiceCard({
-    Key? key,
     required this.service,
     this.cardWidth = 300,
     this.cardHeight = 380,
-  }) : super(key: key);
+  });
 
   @override
   _ServiceCardState createState() => _ServiceCardState();
@@ -21,7 +20,7 @@ class _ServiceCardState extends State<_ServiceCard> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    Theme.of(context);
     return MouseRegion(
       onEnter: (_) => setState(() => isHover = true),
       onExit: (_) => setState(() => isHover = false),
@@ -30,6 +29,7 @@ class _ServiceCardState extends State<_ServiceCard> {
         curve: Curves.easeOutCubic,
         width: widget.cardWidth,
         height: widget.cardHeight,
+        // ignore: deprecated_member_use
         transform: Matrix4.identity()..translate(0.0, isHover ? -8.0 : 0.0),
         padding: const EdgeInsets.symmetric(vertical: 28.0, horizontal: 22.0),
         decoration: BoxDecoration(
@@ -49,27 +49,27 @@ class _ServiceCardState extends State<_ServiceCard> {
           borderRadius: BorderRadius.circular(22),
           border: Border.all(
             color: isHover
-                ? primaryColor.withOpacity(0.7)
-                : Colors.white.withOpacity(0.08),
+                ? primaryColor.withValues(alpha: 0.7)
+                : Colors.white.withValues(alpha: 0.08),
             width: 1.5,
           ),
           boxShadow: isHover
               ? [
                   BoxShadow(
-                    color: primaryColor.withOpacity(0.22),
+                    color: primaryColor.withValues(alpha: 0.22),
                     blurRadius: 24,
                     spreadRadius: 1,
                     offset: const Offset(0, 8),
                   ),
                   BoxShadow(
-                    color: secondaryColor.withOpacity(0.12),
+                    color: secondaryColor.withValues(alpha: 0.12),
                     blurRadius: 32,
                     offset: const Offset(0, 12),
                   ),
                 ]
               : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.35),
+                    color: Colors.black.withValues(alpha: 0.35),
                     blurRadius: 16,
                     offset: const Offset(0, 6),
                   ),
@@ -92,24 +92,24 @@ class _ServiceCardState extends State<_ServiceCard> {
                   end: Alignment.bottomRight,
                   colors: isHover
                       ? [
-                          primaryColor.withOpacity(0.25),
-                          secondaryColor.withOpacity(0.2),
+                          primaryColor.withValues(alpha: 0.25),
+                          secondaryColor.withValues(alpha: 0.2),
                         ]
                       : [
-                          primaryColor.withOpacity(0.12),
-                          secondaryColor.withOpacity(0.06),
+                          primaryColor.withValues(alpha: 0.12),
+                          secondaryColor.withValues(alpha: 0.06),
                         ],
                 ),
                 border: Border.all(
                   color: isHover
-                      ? primaryColor.withOpacity(0.85)
-                      : primaryColor.withOpacity(0.25),
+                      ? primaryColor.withValues(alpha: 0.85)
+                      : primaryColor.withValues(alpha: 0.25),
                   width: 1.5,
                 ),
                 boxShadow: isHover
                     ? [
                         BoxShadow(
-                          color: primaryColor.withOpacity(0.35),
+                          color: primaryColor.withValues(alpha: 0.35),
                           blurRadius: 18,
                           offset: const Offset(0, 4),
                         ),
@@ -143,7 +143,7 @@ class _ServiceCardState extends State<_ServiceCard> {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: Colors.white.withOpacity(0.7),
+                color: Colors.white.withValues(alpha: 0.7),
                 fontWeight: FontWeight.w400,
                 fontSize: 13,
                 height: 1.55,
@@ -157,8 +157,8 @@ class _ServiceCardState extends State<_ServiceCard> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    primaryColor.withOpacity(0.6),
-                    secondaryColor.withOpacity(0.6),
+                    primaryColor.withValues(alpha: 0.6),
+                    secondaryColor.withValues(alpha: 0.6),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(1),
@@ -178,20 +178,20 @@ class _ServiceCardState extends State<_ServiceCard> {
                   ),
                   decoration: BoxDecoration(
                     color: isHover
-                        ? primaryColor.withOpacity(0.15)
-                        : Colors.white.withOpacity(0.05),
+                        ? primaryColor.withValues(alpha: 0.15)
+                        : Colors.white.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: isHover
-                          ? primaryColor.withOpacity(0.6)
-                          : Colors.white.withOpacity(0.12),
+                          ? primaryColor.withValues(alpha: 0.6)
+                          : Colors.white.withValues(alpha: 0.12),
                       width: 1,
                     ),
                   ),
                   child: Text(
                     tool,
                     style: TextStyle(
-                      color: isHover ? primaryColor : Colors.white.withOpacity(0.85),
+                      color: isHover ? primaryColor : Colors.white.withValues(alpha: 0.85),
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 0.2,

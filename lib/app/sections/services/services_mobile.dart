@@ -1,11 +1,11 @@
 part of 'services.dart';
 
 class ServiceMobile extends StatelessWidget {
-  const ServiceMobile({Key? key}) : super(key: key);
+  const ServiceMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    MediaQuery.of(context).size.height;
 
     return Column(
       children: [

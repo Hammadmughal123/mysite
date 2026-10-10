@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mysite/core/color/colors.dart';
 
 class ParticleField extends StatefulWidget {
-  const ParticleField({Key? key}) : super(key: key);
+  const ParticleField({super.key});
 
   @override
   State<ParticleField> createState() => _ParticleFieldState();
@@ -19,20 +19,22 @@ class _ParticleFieldState extends State<ParticleField>
   @override
   void initState() {
     super.initState();
-    _particles = List.generate(36, (_) {
+    // 130 particles, small and crisp, lively smooth movement
+    _particles = List.generate(130, (_) {
       return _Particle(
         x: _random.nextDouble(),
         y: _random.nextDouble(),
-        radius: 1.2 + _random.nextDouble() * 2.2,
-        dx: (_random.nextDouble() - 0.5) * 0.018,
-        dy: (_random.nextDouble() - 0.5) * 0.022,
-        opacity: 0.18 + _random.nextDouble() * 0.35,
+        radius: 1.0 + _random.nextDouble() * 1.6, // Choty crisp particles
+        dx: (_random.nextDouble() - 0.48) * 0.030, // Faster, visible motion
+        dy: (_random.nextDouble() - 0.52) * 0.034,
+        opacity: 0.25 + _random.nextDouble() * 0.48, // Clearly visible
         pink: _random.nextBool(),
       );
     });
+
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 20),
+      duration: const Duration(seconds: 16),
     )..repeat();
   }
 
@@ -83,23 +85,25 @@ class _Particle {
 class _ParticlePainter extends CustomPainter {
   final List<_Particle> particles;
   final double t;
+  static final Paint _paint = Paint();
 
   _ParticlePainter(this.particles, this.t);
 
   @override
   void paint(Canvas canvas, Size size) {
     for (final p in particles) {
-      var x = (p.x + p.dx * t * 20) % 1.0;
-      var y = (p.y + p.dy * t * 20) % 1.0;
+      var x = (p.x + p.dx * t * 24) % 1.0;
+      var y = (p.y + p.dy * t * 24) % 1.0;
       if (x < 0) x += 1;
       if (y < 0) y += 1;
-      final paint = Paint()
-        ..color =
-            (p.pink ? primaryColor : secondaryColor).withOpacity(p.opacity);
+
+      _paint.color = (p.pink ? primaryColor : secondaryColor)
+          .withValues(alpha: p.opacity);
+
       canvas.drawCircle(
         Offset(x * size.width, y * size.height),
         p.radius,
-        paint,
+        _paint,
       );
     }
   }

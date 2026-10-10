@@ -5,30 +5,36 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="description" content="Hammad Ramzan - Mobile Application Developer specializing in Flutter, Firebase, iOS & Android development.">
+  <meta name="theme-color" content="#0e0d17">
 
-  <!-- iOS meta tags & icons -->
+  <!-- Mobile web app & iOS native meta tags -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Hammad Ramzan">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>Hammad Ramzan | Flutter & Mobile Developer</title>
+  <title>Hammad Ramzan | Flutter &amp; Mobile Developer</title>
   <link rel="manifest" href="manifest.json">
 
-  <!-- Preconnect for fast CDN asset resolution -->
+  <!-- Preload critical assets for instant 0ms splash paint -->
+  <link rel="preload" href="profile.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     html, body {
       background-color: #0e0d17;
@@ -38,64 +44,165 @@
       height: 100%;
       overflow: hidden;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: none;
     }
+
+    /* Force mobile web hardware scrolling on Flutter canvas hosts */
+    flt-glass-pane, flt-scene-host, flutter-view {
+      touch-action: pan-y !important;
+      -webkit-overflow-scrolling: touch !important;
+      will-change: transform;
+    }
+
+    /* Instant zero-delay native splash */
     #loading-screen {
       position: fixed;
       inset: 0;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at 50% 45%, #181628 0%, #0d0c16 100%);
+      background: #0e0d17 radial-gradient(circle at 50% 50%, #171529 0%, #0c0b15 100%);
       z-index: 999999;
-      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      will-change: opacity;
     }
-    .loader-card {
+
+    /* Ambient glowing gradient orbs matching main_section */
+    .bg-orb-tl {
+      position: absolute;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(254, 83, 187, 0.28) 0%, rgba(254, 83, 187, 0.08) 45%, transparent 100%);
+      top: -100px;
+      left: -120px;
+      pointer-events: none;
+      filter: blur(20px);
+      animation: orb-pulse 7s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    .bg-orb-br {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(9, 251, 211, 0.26) 0%, rgba(9, 251, 211, 0.07) 45%, transparent 100%);
+      bottom: -100px;
+      right: -120px;
+      pointer-events: none;
+      filter: blur(20px);
+      animation: orb-pulse 8s ease-in-out infinite alternate-reverse;
+      will-change: transform;
+    }
+    @keyframes orb-pulse {
+      0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
+      100% { transform: translate(25px, 20px) scale(1.08); opacity: 1; }
+    }
+
+    /* Micro splash particles */
+    .splash-particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.6;
+      animation: float-particle 10s linear infinite;
+    }
+    @keyframes float-particle {
+      0%   { transform: translateY(0); opacity: 0.2; }
+      50%  { opacity: 0.8; }
+      100% { transform: translateY(-100px); opacity: 0; }
+    }
+
+    /* Main Splash Card */
+    .splash-container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 56px;
+      max-width: 860px;
+      width: 90%;
+      padding: 44px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 28px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Left Side: Brand & Progress */
+    .splash-left {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 24px;
+      align-items: flex-start;
+      text-align: left;
+      flex: 1;
+      min-width: 0;
     }
-    .brand-squircle {
-      width: 72px;
-      height: 72px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(9, 251, 211, 0.12), rgba(254, 83, 187, 0.12));
-      border: 1.5px solid rgba(9, 251, 211, 0.45);
-      box-shadow: 0 0 28px rgba(9, 251, 211, 0.22), 0 0 50px rgba(254, 83, 187, 0.12);
-      display: flex;
+
+    .brand-pill {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(9, 251, 211, 0.08);
+      border: 1px solid rgba(9, 251, 211, 0.3);
+      border-radius: 999px;
       margin-bottom: 20px;
-      animation: pulse-glow 2.4s ease-in-out infinite;
     }
-    .brand-initials {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: #ffffff;
-      text-shadow: 0 0 16px rgba(9, 251, 211, 0.5);
+    .brand-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #09FBD3;
+      box-shadow: 0 0 10px #09FBD3;
+      animation: blink-dot 1.6s ease-in-out infinite;
     }
-    .brand-name {
-      font-size: 22px;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.3px;
-      margin: 0 0 6px 0;
+    @keyframes blink-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.3; transform: scale(0.7); }
     }
-    .brand-role {
+    .brand-pill-text {
       font-size: 12px;
       font-weight: 600;
-      color: #09FBD3;
-      letter-spacing: 1.4px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin: 0 0 22px 0;
-      opacity: 0.9;
+      color: #09FBD3;
+    }
+
+    .splash-name {
+      font-size: 38px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .splash-role {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .splash-role span {
+      color: #09FBD3;
+      font-weight: 600;
+    }
+
+    .progress-wrapper {
+      width: 100%;
+      max-width: 260px;
     }
     .progress-track {
-      width: 180px;
-      height: 3.5px;
+      width: 100%;
+      height: 4px;
       background: rgba(255, 255, 255, 0.08);
       border-radius: 999px;
       overflow: hidden;
@@ -109,50 +216,164 @@
       height: 100%;
       background: linear-gradient(90deg, transparent, #09FBD3, #FE53BB, transparent);
       border-radius: 999px;
-      animation: progress-sweep 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      animation: progress-slide 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
-    .loading-hint {
-      font-size: 11px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.45);
-      letter-spacing: 0.4px;
-      margin-top: 12px;
-      animation: pulse-text 2s ease-in-out infinite;
-    }
-    @keyframes pulse-glow {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 0 28px rgba(9, 251, 211, 0.22), 0 0 50px rgba(254, 83, 187, 0.12);
-      }
-      50% {
-        transform: scale(1.03);
-        box-shadow: 0 0 38px rgba(9, 251, 211, 0.35), 0 0 65px rgba(254, 83, 187, 0.22);
-      }
-    }
-    @keyframes progress-sweep {
-      0% { left: -60%; }
+    @keyframes progress-slide {
+      0%   { left: -60%; }
       100% { left: 100%; }
     }
-    @keyframes pulse-text {
-      0%, 100% { opacity: 0.45; }
-      50% { opacity: 0.75; }
+
+    .loading-status {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+    }
+
+    /* Right Side: Glowing Profile Avatar matching ZoomAnimations */
+    .splash-right {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 270px;
+      height: 270px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: avatar-levitate 3.6s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    @keyframes avatar-levitate {
+      0%   { transform: translateY(-8px); }
+      100% { transform: translateY(8px); }
+    }
+
+    .avatar-glow {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      box-shadow:
+        0 0 35px rgba(9, 251, 211, 0.40),
+        0 0 60px rgba(254, 83, 187, 0.30);
+      pointer-events: none;
+    }
+
+    .avatar-ring {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(
+        135deg,
+        #FE53BB 10%,
+        rgba(254, 83, 187, 0.4) 40%,
+        rgba(9, 251, 211, 0.4) 70%,
+        #09FBD3 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #000000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .splash-container {
+        flex-direction: column-reverse;
+        gap: 28px;
+        padding: 32px 20px;
+        text-align: center;
+        width: 88%;
+      }
+      .splash-left {
+        align-items: center;
+        text-align: center;
+      }
+      .splash-name {
+        font-size: 26px;
+      }
+      .splash-role {
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+      .avatar-wrapper {
+        width: 190px;
+        height: 190px;
+      }
+      .progress-wrapper {
+        max-width: 200px;
+      }
     }
   </style>
 </head>
 <body>
   <div id="loading-screen">
-    <div class="loader-card">
-      <div class="brand-squircle">
-        <span class="brand-initials">HR</span>
+    <div class="bg-orb-tl"></div>
+    <div class="bg-orb-br"></div>
+
+    <div class="splash-particle" style="width: 3px; height: 3px; background: #09FBD3; top: 25%; left: 15%; animation-duration: 9s;"></div>
+    <div class="splash-particle" style="width: 2px; height: 2px; background: #FE53BB; top: 70%; left: 22%; animation-duration: 11s;"></div>
+    <div class="splash-particle" style="width: 4px; height: 4px; background: #09FBD3; top: 40%; right: 18%; animation-duration: 8s;"></div>
+    <div class="splash-particle" style="width: 2px; height: 2px; background: #FE53BB; top: 80%; right: 28%; animation-duration: 12s;"></div>
+
+    <div class="splash-container">
+      <div class="splash-left">
+        <div class="brand-pill">
+          <div class="brand-pill-dot"></div>
+          <span class="brand-pill-text">Welcome</span>
+        </div>
+        <h1 class="splash-name">Hammad Ramzan</h1>
+        <p class="splash-role">Specializing in <span>Flutter</span> &amp; Mobile Applications</p>
+        <div class="progress-wrapper">
+          <div class="progress-track">
+            <div class="progress-beam"></div>
+          </div>
+          <span class="loading-status">Loading portfolio...</span>
+        </div>
       </div>
-      <h1 class="brand-name">Hammad Ramzan</h1>
-      <p class="brand-role">Flutter & Mobile Developer</p>
-      <div class="progress-track">
-        <div class="progress-beam"></div>
+
+      <div class="splash-right">
+        <div class="avatar-wrapper">
+          <div class="avatar-glow"></div>
+          <div class="avatar-ring">
+            <div class="avatar-inner">
+              <img src="profile.png"
+                   alt="Hammad Ramzan"
+                   onerror="this.src='assets/assets/imgs/IMG0107.png'; this.onerror=null;">
+            </div>
+          </div>
+        </div>
       </div>
-      <span class="loading-hint">Loading portfolio...</span>
     </div>
   </div>
+
   <script>
     {{flutter_js}}
     {{flutter_build_config}}
@@ -160,11 +381,10 @@
     _flutter.loader.load({
       onEntrypointLoaded: async function(engineInitializer) {
         const appRunner = await engineInitializer.initializeEngine();
+        // Remove splash with ZERO delay
         const loader = document.getElementById('loading-screen');
         if (loader) {
-          loader.style.opacity = '0';
-          loader.style.pointerEvents = 'none';
-          setTimeout(function() { loader.remove(); }, 350);
+          loader.remove();
         }
         await appRunner.runApp();
       }

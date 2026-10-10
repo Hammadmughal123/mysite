@@ -14,7 +14,7 @@ class ScrollReveal extends StatefulWidget {
   final String? detectorKey;
 
   const ScrollReveal({
-    Key? key,
+    super.key,
     required this.child,
     this.delay = Duration.zero,
     this.duration = const Duration(milliseconds: 950),
@@ -22,7 +22,7 @@ class ScrollReveal extends StatefulWidget {
     this.beginScale = 0.96,
     this.autoStart = false,
     this.detectorKey,
-  }) : super(key: key);
+  });
 
   @override
   State<ScrollReveal> createState() => _ScrollRevealState();

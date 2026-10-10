@@ -30,7 +30,7 @@ class ThemeColors {
   //  backgroundColor: darkBackgroundColor,
     scaffoldBackgroundColor: const Color(0xFF00040F),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
    //   button: TextStyle(color: darkTextColor),
     ),
     appBarTheme: AppBarTheme(
@@ -38,6 +38,7 @@ class ThemeColors {
     ),
   );
   static Brightness get currentSystemBrightness =>
+      // ignore: deprecated_member_use
       SchedulerBinding.instance.window.platformBrightness;
 }
 

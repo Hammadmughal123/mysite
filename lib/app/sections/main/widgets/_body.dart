@@ -4,6 +4,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scrollProvider = Provider.of<ScrollProvider>(context);
+    final isMobile = Responsive.isMobile(context);
 
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(
@@ -15,7 +16,10 @@ class _Body extends StatelessWidget {
           parent: AlwaysScrollableScrollPhysics(),
         ),
         padding: EdgeInsets.zero,
-        minCacheExtent: 900,
+        addAutomaticKeepAlives: true,
+        addRepaintBoundaries: true,
+        // Moderate cache extent to balance smoothness without exhausting mobile memory
+        minCacheExtent: isMobile ? 400 : 800,
         itemCount: BodyUtils.views.length,
         itemBuilder: (context, index) => ScrollEntranceSection(
           index: index,

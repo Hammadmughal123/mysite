@@ -9,7 +9,7 @@ import 'package:sizer/sizer.dart';
 class ProjectCard extends StatefulWidget {
   final ProjectUtils project;
 
-  const ProjectCard({Key? key, required this.project}) : super(key: key);
+  const ProjectCard({super.key, required this.project});
   @override
   ProjectCardState createState() => ProjectCardState();
 }
@@ -46,6 +46,7 @@ class ProjectCardState extends State<ProjectCard> {
         margin: const EdgeInsets.all(10),
         width: cardWidth,
         height: cardHeight,
+        // ignore: deprecated_member_use
         transform: Matrix4.identity()..translate(0.0, isHover ? -8.0 : 0.0),
         decoration: BoxDecoration(
           gradient: isHover ? pinkpurple : grayBack,
@@ -64,7 +65,7 @@ class ProjectCardState extends State<ProjectCard> {
                     widget.project.icons,
                     height: cardHeight * 0.05,
                   ),
-                  SizedBox(height: cardHeight * 0.02),
+                  const SizedBox(height: cardHeight * 0.02),
                   Text(
                     widget.project.titles,
                     style: TextStyle(
@@ -73,7 +74,7 @@ class ProjectCardState extends State<ProjectCard> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: cardHeight * 0.01),
+                  const SizedBox(height: cardHeight * 0.01),
                   Text(
                     widget.project.description,
                     textAlign: TextAlign.center,
@@ -81,7 +82,7 @@ class ProjectCardState extends State<ProjectCard> {
                       color: isHover ? whiteColor : theme.textColor,
                     ),
                   ),
-                  SizedBox(height: cardHeight * 0.01),
+                  const SizedBox(height: cardHeight * 0.01),
                 ],
               ),
             ),
