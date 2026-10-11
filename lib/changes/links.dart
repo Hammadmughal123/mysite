@@ -16,7 +16,7 @@ const String linkedin = 'https://www.linkedin.com/in/hammad-ramzan-8908aa27a?utm
 // Github Link
 const String buymeacoffee = '';
 // Github Link
-const String instagram = '';
+const String instagram = 'https://www.instagram.com/hammadramzan20/';
 // socialLinks
 // const List<String> socialLinks = [
 //   "https://facebook.com/Hammadnb",
@@ -36,3 +36,9 @@ const String fiverr = '';
 const String upwork = '';
 // Github Link
 const String whatsapp = 'https://wa.me/923160382068';
+
+// Call & Email
+const String phoneNumber = '+923160382068';
+const String callUrl = 'tel:+923160382068';
+const String emailAddress = 'hammadramzan2068@gmail.com';
+const String mailtoUrl = 'mailto:hammadramzan2068@gmail.com';

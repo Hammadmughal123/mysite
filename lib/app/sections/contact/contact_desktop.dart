@@ -77,6 +77,25 @@ class ContactDesktop extends StatelessWidget {
                                 color: theme.textColor.withValues(alpha: 0.8),
                               ),
                             ),
+                          //  const SizedBox(height: 16),
+                            // Wrap(
+                            //   spacing: 12,
+                            //   runSpacing: 10,
+                            //   children: [
+                            //     _QuickContactChip(
+                            //       icon: Icons.phone_in_talk_rounded,
+                            //       label: phoneNumber,
+                            //       color: const Color(0xFF00C853),
+                            //       onTap: () => openURL(callUrl),
+                            //     ),
+                            //     _QuickContactChip(
+                            //       icon: Icons.email_rounded,
+                            //       label: emailAddress,
+                            //       color: const Color(0xFFEA4335),
+                            //       onTap: () => openURL(mailtoUrl),
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ),
@@ -121,6 +140,57 @@ class ContactDesktop extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _QuickContactChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _QuickContactChip({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: color.withValues(alpha: 0.4),
+              width: 1.2,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 16, color: color),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
