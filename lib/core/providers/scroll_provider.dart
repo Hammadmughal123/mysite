@@ -19,22 +19,9 @@ class ScrollProvider extends ChangeNotifier {
     bool updated = false;
     final Set<int> newlyVisible = {};
 
-    // Check if user is currently at the top of Home section (index 0)
-    final bool isAtVeryTop = positions.any(
-      (p) => p.index == 0 && p.itemLeadingEdge >= -0.05,
-    );
-
     for (final pos in positions) {
-      if (pos.index == 0) {
-        newlyVisible.add(0);
-        continue;
-      }
-
-      // If user is parked at the very top of Home, lower sections must not trigger entrance
-      if (isAtVeryTop) continue;
-
-      // Section in view when scrolled into screen
-      if (pos.itemLeadingEdge < 0.72 && pos.itemTrailingEdge > 0.12) {
+      // Section in view when leading edge hasn't gone too far up and trailing edge is on screen
+      if (pos.itemLeadingEdge < 0.85 && pos.itemTrailingEdge > 0.0) {
         newlyVisible.add(pos.index);
       }
     }

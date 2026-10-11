@@ -35,6 +35,8 @@ class _SkillsSectionState extends State<SkillsSection>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    if (Responsive.isMobile(context)) return;
+
     final bool isVisible = SectionVisibilityScope.of(context);
     if (isVisible != _wasVisible) {
       _wasVisible = isVisible;
@@ -136,6 +138,38 @@ class _SkillsSectionState extends State<SkillsSection>
   }
 
   Widget _buildSectionHeader(ThemeData theme) {
+    if (Responsive.isMobile(context)) {
+      return Column(
+        children: [
+          const Text(
+            'Technical Expertise',
+            style: TextStyle(
+              fontSize: 36,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              letterSpacing: -1.2,
+              height: 1.2,
+            ),
+          ),
+          Space.y(2.w)!,
+          Container(
+            height: 6,
+            width: 120,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.blue.shade400,
+                  Colors.purple.shade400,
+                  Colors.pink.shade400,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(3),
+            ),
+          ),
+        ],
+      );
+    }
+
     return Column(
       children: [
         // Animated title

@@ -58,6 +58,7 @@ class _ParticleFieldState extends State<ParticleField>
 
   @override
   Widget build(BuildContext context) {
+    if (Responsive.isMobile(context)) return const SizedBox.shrink();
     if (!_initialized) return const SizedBox.shrink();
 
     return IgnorePointer(

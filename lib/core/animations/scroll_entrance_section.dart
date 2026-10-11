@@ -45,14 +45,6 @@ class ScrollEntranceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (index == 0) {
-      return SectionVisibilityScope(
-        isVisible: true,
-        sectionIndex: 0,
-        child: child,
-      );
-    }
-
     final scrollProvider = Provider.of<ScrollProvider>(context);
     final bool isVisible = scrollProvider.isSectionVisible(index);
 

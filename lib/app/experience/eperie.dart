@@ -28,6 +28,8 @@ class _ExperienceSectionState extends State<ExperienceSection>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    if (Responsive.isMobile(context)) return;
+
     final bool isVisible = SectionVisibilityScope.of(context);
     if (isVisible != _wasVisible) {
       _wasVisible = isVisible;
@@ -151,6 +153,49 @@ class _ExperienceSectionState extends State<ExperienceSection>
   }
 
   Widget _buildEnhancedHeader(ThemeData theme) {
+    if (Responsive.isMobile(context)) {
+      return Column(
+        children: [
+          const Text(
+            'My Experience',
+            style: TextStyle(
+              fontSize: 36,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -1.2,
+              height: 1.2,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'My journey through different companies and projects',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white.withValues(alpha: 0.8),
+              fontWeight: FontWeight.w300,
+              letterSpacing: 0.3,
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 30),
+          Container(
+            height: 4,
+            width: 100,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.purple.shade400,
+                  Colors.pink.shade400,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+        ],
+      );
+    }
+
     return AnimatedBuilder(
       animation: _titleAnimation,
       builder: (context, child) {
@@ -581,23 +626,10 @@ class _ExperienceSectionState extends State<ExperienceSection>
         Map<String, dynamic> experience = entry.value;
         bool isLast = index == experienceData.length - 1;
 
-        return AnimatedBuilder(
-          animation: _cardAnimations[index],
-          builder: (context, child) {
-            final animValue = _cardAnimations[index].value.clamp(0.0, 1.0);
-
-            return Transform.translate(
-              offset: Offset(30 * (1 - animValue), 0),
-              child: Opacity(
-                opacity: animValue,
-                child: _buildMobileExperienceWithTimeline(
-                  experience: experience,
-                  theme: theme,
-                  isLast: isLast,
-                ),
-              ),
-            );
-          },
+        return _buildMobileExperienceWithTimeline(
+          experience: experience,
+          theme: theme,
+          isLast: isLast,
         );
       }).toList(),
     );
