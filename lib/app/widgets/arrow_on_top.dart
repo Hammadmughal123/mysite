@@ -14,7 +14,7 @@ class ArrowOnTopState extends State<ArrowOnTop> {
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
-    final scrollProvider = Provider.of<ScrollProvider>(context);
+    final scrollProvider = Provider.of<ScrollProvider>(context, listen: false);
 
     return Positioned(
       bottom: 92,

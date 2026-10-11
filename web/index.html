@@ -49,11 +49,10 @@
       overscroll-behavior-y: none;
     }
 
-    /* Force mobile web hardware scrolling on Flutter canvas hosts */
+    /* Native touch scrolling on Flutter canvas hosts */
     flt-glass-pane, flt-scene-host, flutter-view {
       touch-action: pan-y !important;
       -webkit-overflow-scrolling: touch !important;
-      will-change: transform;
     }
 
     /* Instant zero-delay native splash */

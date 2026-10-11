@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mysite/core/color/colors.dart';
 
+import 'package:mysite/core/res/responsive.dart';
+
 class ParticleField extends StatefulWidget {
   const ParticleField({super.key});
 
@@ -13,29 +15,39 @@ class ParticleField extends StatefulWidget {
 class _ParticleFieldState extends State<ParticleField>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final List<_Particle> _particles;
+  late List<_Particle> _particles;
   final _random = Random(7);
+  bool _initialized = false;
 
   @override
   void initState() {
     super.initState();
-    // 130 particles, small and crisp, lively smooth movement
-    _particles = List.generate(130, (_) {
-      return _Particle(
-        x: _random.nextDouble(),
-        y: _random.nextDouble(),
-        radius: 1.0 + _random.nextDouble() * 1.6, // Choty crisp particles
-        dx: (_random.nextDouble() - 0.48) * 0.030, // Faster, visible motion
-        dy: (_random.nextDouble() - 0.52) * 0.034,
-        opacity: 0.25 + _random.nextDouble() * 0.48, // Clearly visible
-        pink: _random.nextBool(),
-      );
-    });
-
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 16),
+      duration: const Duration(seconds: 22),
     )..repeat();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      final bool isMobile = Responsive.isMobile(context);
+      final int count = isMobile ? 16 : 36;
+
+      _particles = List.generate(count, (_) {
+        return _Particle(
+          x: _random.nextDouble(),
+          y: _random.nextDouble(),
+          radius: 1.0 + _random.nextDouble() * 1.5,
+          dx: (_random.nextDouble() - 0.48) * 0.022,
+          dy: (_random.nextDouble() - 0.52) * 0.026,
+          opacity: 0.18 + _random.nextDouble() * 0.35,
+          pink: _random.nextBool(),
+        );
+      });
+    }
   }
 
   @override
@@ -46,6 +58,8 @@ class _ParticleFieldState extends State<ParticleField>
 
   @override
   Widget build(BuildContext context) {
+    if (!_initialized) return const SizedBox.shrink();
+
     return IgnorePointer(
       child: RepaintBoundary(
         child: AnimatedBuilder(

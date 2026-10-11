@@ -22,7 +22,7 @@ class _NavBarActionButtonState extends State<NavBarActionButton> {
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
-    final scrollProvider = Provider.of<ScrollProvider>(context);
+    final scrollProvider = Provider.of<ScrollProvider>(context, listen: false);
     // theme
     var theme = Theme.of(context);
     return EntranceFader(
